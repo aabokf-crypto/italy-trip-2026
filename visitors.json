@@ -3,14 +3,8 @@
   "visitors": [],
   "list": [
     {
-      "name": "زائر-NFBV",
-      "time": 1780941405500,
-      "device": "🖥️ Windows",
-      "anon": true
-    },
-    {
       "name": "عبدالرحمن",
-      "time": 1780941365767,
+      "time": 1780941415064,
       "device": "📱 iPhone",
       "anon": false
     },
@@ -61,5 +55,5 @@
       "device": "📱 iPhone"
     }
   ],
-  "count": 17
+  "count": 16
 }
