@@ -3,10 +3,10 @@
   "visitors": [],
   "list": [
     {
-      "name": "زائر-ZC7B",
-      "time": 1780941363544,
+      "name": "عبدالرحمن",
+      "time": 1780941365767,
       "device": "📱 iPhone",
-      "anon": true
+      "anon": false
     },
     {
       "name": "زائر-MKI0",
@@ -48,11 +48,6 @@
       "time": 1780926471879,
       "device": "📱 Android",
       "anon": true
-    },
-    {
-      "name": "عبدالرحمن",
-      "time": 1780925147002,
-      "device": "📱 iPhone"
     },
     {
       "name": "Asmaa",
