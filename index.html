@@ -1069,18 +1069,10 @@ confirmName=function(){
 // ── INIT ─────────────────────────────────────────
 if(S.user) document.getElementById('ubtn').textContent='👤 '+S.user;
 renderDashboard();
-// Load Wikipedia photos in background and refresh slideshows
-loadAllWikiPhotos(function(){
-  Object.keys(cardTimers).forEach(function(k){clearInterval(cardTimers[k]);delete cardTimers[k];});
-  Object.keys(placeTimers).forEach(function(k){clearInterval(placeTimers[k]);delete placeTimers[k];});
-  buildHero();
-  // Refresh dest card images
-  S.dests.forEach(function(d){
-    var el=document.getElementById('dcimg-'+d.id);
-    if(el&&d.imgs&&d.imgs[0]) el.src=d.imgs[0];
-  });
-  setTimeout(startCardSlideshows,300);
-  save();
+// Load and show visitor tracking
+loadVData(function(){
+  renderVisitorBox();
+  if(S.user) setTimeout(saveVisitor, 500);
 });
 </script>
 </body>
