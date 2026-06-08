@@ -535,16 +535,22 @@ function loadVD(cb){
     .catch(function(){if(cb)cb()});
 }
 
-function saveVD(){
-  if(!S.user) return;
+function saveVD(nameOverride){
   var now=Date.now();
-  VD.list=VD.list.filter(function(v){return v.name!==S.user});
-  VD.list.unshift({name:S.user,time:now,device:dev()});
-  if(VD.list.length>50) VD.list=VD.list.slice(0,50);
+  var visName=nameOverride||S.user||null;
+  var visDevice=dev();
+  // Generate anonymous ID per device (stored in localStorage)
+  var anonId=ls('tp5_anon');
+  if(!anonId){anonId='زائر-'+Math.random().toString(36).substr(2,4).toUpperCase();ss('tp5_anon',anonId);}
+  var displayName=visName||anonId;
+  var isAnon=!visName;
+  VD.list=VD.list.filter(function(v){return v.name!==displayName});
+  VD.list.unshift({name:displayName,time:now,device:visDevice,anon:isAnon});
+  if(VD.list.length>100) VD.list=VD.list.slice(0,100);
   VD.count=(VD.count||0)+1;
   renderVbox();
   var content=btoa(unescape(encodeURIComponent(JSON.stringify(VD,null,2))));
-  var body={message:'Visit: '+S.user,content:content,branch:'main'};
+  var body={message:(isAnon?'Anonymous visit':'Visit: '+displayName),content:content,branch:'main'};
   if(VD_SHA) body.sha=VD_SHA;
   fetch('https://api.github.com/repos/'+GR+'/contents/visitors.json',{
     method:'PUT',
@@ -568,9 +574,13 @@ function renderVbox(){
   } else {
     h+='<div class="vlist">';
     list.forEach(function(v){
-      var c=avc(v.name);
-      h+='<div class="vitem"><div class="vav" style="background:'+c+'">'+v.name[0]+'</div>';
-      h+='<div><div class="vname">'+v.name+'</div><div class="vtime">فتح الصفحة '+ago(v.time)+'</div></div>';
+      var isAnon=v.anon||v.name.startsWith('زائر-');
+      var c=isAnon?'#b0b0b0':avc(v.name);
+      var icon=isAnon?'👤':v.name[0];
+      h+='<div class="vitem" style="'+(isAnon?'opacity:.75':'')+'">'+
+        '<div class="vav" style="background:'+c+';font-size:'+(isAnon?'12px':'')+'">'+icon+'</div>';
+      h+='<div><div class="vname">'+(isAnon?'<span style="color:#9e9890;font-style:italic">'+v.name+' (لم يضع اسماً)</span>':v.name)+'</div>'+
+         '<div class="vtime">فتح الصفحة '+ago(v.time)+'</div></div>';
       h+='<div class="vdev">'+v.device+'</div></div>';
     });
     h+='</div>';
@@ -921,7 +931,10 @@ function okName(){
   document.getElementById('namemod').style.display='none';
   document.getElementById('ubtn').textContent='👤 '+v;
   renderDash();renderActs();
-  setTimeout(saveVD,500);
+  // Remove anonymous entry and save with real name
+  var anonId=ls('tp5_anon');
+  if(anonId){VD.list=VD.list.filter(function(x){return x.name!==anonId});}
+  setTimeout(function(){saveVD(v)},500);
 }
 
 // ═══════════════════════════════════════
@@ -980,7 +993,8 @@ renderDash();
 // Load visitors
 loadVD(function(){
   renderVbox();
-  if(S.user) setTimeout(saveVD,800);
+  // Record visit immediately - named or anonymous
+  setTimeout(saveVD,800);
 });
 </script>
 </body>
