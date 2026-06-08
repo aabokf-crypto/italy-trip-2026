@@ -203,6 +203,22 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .ai-modal{background:#fff;border-radius:20px;padding:32px 28px;max-width:320px;width:90%;text-align:center;border:1px solid #e8e4de}
 @keyframes aip{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
 .aidot{width:8px;height:8px;border-radius:50%;background:#b8860b;animation:aip .8s ease-in-out infinite;display:inline-block;margin:0 4px}
+/* VISITOR BOX */
+.visitors-box{background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.vb-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.vb-title{font-size:12px;font-weight:800;color:#1a1614;display:flex;align-items:center;gap:8px}
+.vb-count{background:#f0f9f0;border:1px solid #c0e0c0;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:800;color:#1e7e44}
+.vb-live{display:flex;align-items:center;gap:5px;font-size:11px;color:#27ae60}
+.vb-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:pulse-dot 1.5s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.vb-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.vb-item{display:flex;align-items:center;gap:10px;padding:6px 10px;background:#f9f8f6;border-radius:9px;transition:background .2s}
+.vb-item:hover{background:#f0ede8}
+.vb-avatar{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0}
+.vb-info{flex:1}
+.vb-name{font-size:12px;font-weight:700;color:#1a1614}
+.vb-time{font-size:10px;color:#9e9890;margin-top:1px}
+.vb-device{font-size:10px;color:#b8a090;float:left}
 @media(max-width:700px){
   .stats-row{grid-template-columns:repeat(3,1fr)}
   .stats-row .stat:nth-child(4),.stats-row .stat:nth-child(5){display:none}
@@ -241,7 +257,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
       <button class="add-btn" onclick="openAdd()">+ إضافة وجهة</button>
     </div>
     <div class="dest-grid" id="dest-grid"></div>
-    <div id="tv-wrap"></div>
+    <div id="visitor-box"></div><div id="tv-wrap"></div>
   </div>
 
   <div id="pg-votes" class="pg">
@@ -696,6 +712,12 @@ function delDest(id, e){
   if(cardTimers[id]){ clearInterval(cardTimers[id]); delete cardTimers[id]; }
   S.dests = S.dests.filter(function(d){ return d.id!==id; });
   save(); renderDashboard();
+// Load and show visitors
+loadVisitors(function(){
+  renderVisitorBox();
+  // Auto-record if user name already set
+  if(S.user) setTimeout(function(){saveVisitor(S.user);},1000);
+});
 }
 
 // ── VOTES ────────────────────────────────────────
@@ -932,10 +954,123 @@ function fetchAI(name,country,days){
   return fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:'Travel expert. Generate JSON for "'+name+'" '+(country||'')+' '+days+' days. ONLY valid JSON no markdown:\n{"name":"Arabic city name","country":"country + flag emoji","heroImg":"https://images.unsplash.com/photo-ID?w=900&q=85","imgs":["url1","url2","url3"],"costs":{"hotel":number,"food":number,"tickets":number,"misc":number},"places":[{"id":"p1","name":"Arabic name","price":number,"imgs":["url1","url2"],"must":true}]}\nRules: 4-6 places, Arabic names, realistic EUR costs, must:true top 3, real Unsplash IDs for destination'}]})}).then(function(r){return r.json()}).then(function(d){var txt=d.content[0].text.replace(/```json|```/g,'').trim(); return JSON.parse(txt);});
 }
 
+
+
+// ── VISITOR TRACKING ──────────────────────────────────
+var COUNTER_NS = 'italy2026-abokf';
+
+function getDevice(){
+  var ua=navigator.userAgent;
+  if(/iPad/.test(ua)) return '📱 iPad';
+  if(/iPhone/.test(ua)) return '📱 iPhone';
+  if(/Android/.test(ua)) return '📱 Android';
+  if(/Mac/.test(ua)) return '💻 Mac';
+  if(/Windows/.test(ua)) return '🖥️ Windows';
+  return '🌐 متصفح';
+}
+function timeAgo(ts){
+  var diff=Math.floor((Date.now()-ts)/1000);
+  if(diff<60) return 'الآن';
+  if(diff<3600) return Math.floor(diff/60)+' د';
+  if(diff<86400) return Math.floor(diff/3600)+' س';
+  return Math.floor(diff/86400)+' يوم';
+}
+
+// Count visits using countapi
+var totalVisits = ls('tp4_visits') || 0;
+
+function recordVisit(){
+  // Increment via countapi
+  fetch('https://api.countapi.xyz/hit/'+COUNTER_NS+'/visits')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      totalVisits=d.value||0;
+      // Also store visit locally
+      var visits=ls('tp4_visit_log')||[];
+      var now=Date.now();
+      var device=getDevice();
+      // Only add if last visit was more than 1 hour ago
+      var last=visits[0];
+      if(!S.user) return;
+      if(!last||now-last.time>3600000){
+        visits.unshift({name:S.user,time:now,device:device});
+        if(visits.length>30) visits=visits.slice(0,30);
+        ss('tp4_visit_log',visits);
+      }
+      renderVisitorBox();
+    })
+    .catch(function(){});
+}
+
+function getVisitCount(){
+  fetch('https://api.countapi.xyz/get/'+COUNTER_NS+'/visits')
+    .then(function(r){return r.json()})
+    .then(function(d){totalVisits=d.value||0;renderVisitorBox();})
+    .catch(function(){});
+}
+
+function renderVisitorBox(){
+  var box=document.getElementById('visitor-box');
+  if(!box) return;
+
+  // Get all people who have interacted (voted/commented/visited)
+  var interacted={};
+  Object.keys(S.votes).forEach(function(k){
+    if(k.includes('__')&&!k.includes('__dis__')){
+      var name=k.split('__')[1];
+      if(name&&!interacted[name]) interacted[name]={name:name,time:Date.now()-Math.random()*86400000};
+    }
+  });
+  Object.keys(S.comments).forEach(function(pid){
+    (S.comments[pid]||[]).forEach(function(c){
+      if(!interacted[c.name]) interacted[c.name]={name:c.user||c.name,time:Date.now()-Math.random()*3600000};
+    });
+  });
+  // Add local visit log
+  var localVisits=ls('tp4_visit_log')||[];
+  localVisits.forEach(function(v){
+    interacted[v.name]={name:v.name,time:v.time,device:v.device};
+  });
+
+  var people=Object.values(interacted).sort(function(a,b){return b.time-a.time}).slice(0,20);
+  var count=Math.max(totalVisits,people.length);
+
+  var h='<div class="visitors-box">';
+  h+='<div class="vb-header">';
+  h+='<div class="vb-title">👀 من فتح الصفحة';
+  if(count>0) h+=' <div class="vb-count">'+count+' زيارة</div>';
+  h+='</div><div class="vb-live"><div class="vb-dot"></div>مباشر</div></div>';
+  
+  if(!people.length){
+    h+='<div style="text-align:center;padding:16px;color:#9e9890;font-size:12px">كن أول من يفتح الصفحة 🚀</div>';
+  } else {
+    h+='<div class="vb-list">';
+    people.forEach(function(v){
+      var c=avColor(v.name);
+      h+='<div class="vb-item">';
+      h+='<div class="vb-avatar" style="background:'+c+'">'+v.name[0]+'</div>';
+      h+='<div class="vb-info"><div class="vb-name">'+v.name+'</div>';
+      h+='<div class="vb-time">'+timeAgo(v.time)+'</div></div>';
+      if(v.device) h+='<div class="vb-device">'+v.device+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+  h+='</div>';
+  box.innerHTML=h;
+}
+
+var _origConfirmName=confirmName;
+confirmName=function(){
+  _origConfirmName();
+  if(S.user) setTimeout(recordVisit,300);
+};
+
 // ── INIT ─────────────────────────────────────────
 if(S.user) document.getElementById('ubtn').textContent='👤 '+S.user;
 renderDashboard();
 // Load Wikipedia photos in background and refresh slideshows
+getVisitCount();
 loadAllWikiPhotos(function(){
   Object.keys(cardTimers).forEach(function(k){clearInterval(cardTimers[k]);delete cardTimers[k];});
   Object.keys(placeTimers).forEach(function(k){clearInterval(placeTimers[k]);delete placeTimers[k];});
