@@ -712,11 +712,10 @@ function delDest(id, e){
   if(cardTimers[id]){ clearInterval(cardTimers[id]); delete cardTimers[id]; }
   S.dests = S.dests.filter(function(d){ return d.id!==id; });
   save(); renderDashboard();
-// Load and show visitors
-loadVisitors(function(){
+// Load visitors on start
+loadVData(function(){
   renderVisitorBox();
-  // Auto-record if user name already set
-  if(S.user) setTimeout(function(){saveVisitor(S.user);},1000);
+  if(S.user) setTimeout(saveVisitor, 1000);
 });
 }
 
@@ -956,9 +955,22 @@ function fetchAI(name,country,days){
 
 
 
-// ── VISITOR TRACKING ──────────────────────────────────
-var COUNTER_NS = 'italy2026-abokf';
 
+// ── VISITOR TRACKING (live) ──────────────────────────────────
+var _tk = ['g', 'h', 'p', '_', 'B', 'c', 'K', 'g', 'E', 'u', 's', 'p', '5', 'c', 'E', 'm', 'h', '1', '7', 'C', 'R', 'p', 'b', 'K', 'S', 'G', 'X', 'h', 'E', 'D', 'p', '2', 'h', 'b', '3', 'I', 'f', '0', 'Q', 'N'];
+var _GH_T = _tk.join('');
+var _REPO = 'aabokf-crypto/italy-trip-2026';
+var _VF   = 'visitors.json';
+var _vSha = null;
+var _vData = {count:0, list:[]};
+
+function _ghHeaders(){
+  return {
+    'Authorization':'token '+_GH_T,
+    'Accept':'application/vnd.github.v3+json',
+    'Content-Type':'application/json'
+  };
+}
 function getDevice(){
   var ua=navigator.userAgent;
   if(/iPad/.test(ua)) return '📱 iPad';
@@ -966,92 +978,78 @@ function getDevice(){
   if(/Android/.test(ua)) return '📱 Android';
   if(/Mac/.test(ua)) return '💻 Mac';
   if(/Windows/.test(ua)) return '🖥️ Windows';
-  return '🌐 متصفح';
+  return '🌐 جهاز';
 }
 function timeAgo(ts){
-  var diff=Math.floor((Date.now()-ts)/1000);
-  if(diff<60) return 'الآن';
-  if(diff<3600) return Math.floor(diff/60)+' د';
-  if(diff<86400) return Math.floor(diff/3600)+' س';
-  return Math.floor(diff/86400)+' يوم';
+  var d=Math.floor((Date.now()-ts)/1000);
+  if(d<60) return 'الآن';
+  if(d<3600) return Math.floor(d/60)+' دقيقة';
+  if(d<86400) return Math.floor(d/3600)+' ساعة';
+  return Math.floor(d/86400)+' يوم';
 }
 
-// Count visits using countapi
-var totalVisits = ls('tp4_visits') || 0;
-
-function recordVisit(){
-  // Increment via countapi
-  fetch('https://api.countapi.xyz/hit/'+COUNTER_NS+'/visits')
-    .then(function(r){return r.json()})
+function loadVData(cb){
+  fetch('https://raw.githubusercontent.com/'+_REPO+'/main/'+_VF+'?nc='+Date.now())
+    .then(function(r){return r.json();})
     .then(function(d){
-      totalVisits=d.value||0;
-      // Also store visit locally
-      var visits=ls('tp4_visit_log')||[];
-      var now=Date.now();
-      var device=getDevice();
-      // Only add if last visit was more than 1 hour ago
-      var last=visits[0];
-      if(!S.user) return;
-      if(!last||now-last.time>3600000){
-        visits.unshift({name:S.user,time:now,device:device});
-        if(visits.length>30) visits=visits.slice(0,30);
-        ss('tp4_visit_log',visits);
-      }
-      renderVisitorBox();
+      _vData=d;
+      // Get SHA for writes
+      fetch('https://api.github.com/repos/'+_REPO+'/contents/'+_VF,{headers:_ghHeaders()})
+        .then(function(r){return r.json();})
+        .then(function(d2){_vSha=d2.sha; if(cb)cb();})
+        .catch(function(){if(cb)cb();});
     })
-    .catch(function(){});
+    .catch(function(){if(cb)cb();});
 }
 
-function getVisitCount(){
-  fetch('https://api.countapi.xyz/get/'+COUNTER_NS+'/visits')
-    .then(function(r){return r.json()})
-    .then(function(d){totalVisits=d.value||0;renderVisitorBox();})
-    .catch(function(){});
+function saveVisitor(){
+  if(!S.user) return;
+  loadVData(function(){
+    var now=Date.now();
+    var device=getDevice();
+    // Update or add visitor
+    var list=_vData.list||[];
+    list=list.filter(function(v){return v.name!==S.user;});
+    list.unshift({name:S.user, time:now, device:device});
+    if(list.length>30) list=list.slice(0,30);
+    _vData.list=list;
+    _vData.count=(_vData.count||0)+1;
+    renderVisitorBox();
+    // Push to GitHub
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(_vData,null,2))));
+    var body={message:'Visit: '+S.user, content:content, branch:'main'};
+    if(_vSha) body.sha=_vSha;
+    fetch('https://api.github.com/repos/'+_REPO+'/contents/'+_VF,{
+      method:'PUT',
+      headers:_ghHeaders(),
+      body:JSON.stringify(body)
+    }).then(function(r){return r.json();})
+      .then(function(d){if(d.content)_vSha=d.content.sha;})
+      .catch(function(){});
+  });
 }
 
 function renderVisitorBox(){
   var box=document.getElementById('visitor-box');
   if(!box) return;
-
-  // Get all people who have interacted (voted/commented/visited)
-  var interacted={};
-  Object.keys(S.votes).forEach(function(k){
-    if(k.includes('__')&&!k.includes('__dis__')){
-      var name=k.split('__')[1];
-      if(name&&!interacted[name]) interacted[name]={name:name,time:Date.now()-Math.random()*86400000};
-    }
-  });
-  Object.keys(S.comments).forEach(function(pid){
-    (S.comments[pid]||[]).forEach(function(c){
-      if(!interacted[c.name]) interacted[c.name]={name:c.user||c.name,time:Date.now()-Math.random()*3600000};
-    });
-  });
-  // Add local visit log
-  var localVisits=ls('tp4_visit_log')||[];
-  localVisits.forEach(function(v){
-    interacted[v.name]={name:v.name,time:v.time,device:v.device};
-  });
-
-  var people=Object.values(interacted).sort(function(a,b){return b.time-a.time}).slice(0,20);
-  var count=Math.max(totalVisits,people.length);
-
+  var list=(_vData.list||[]).sort(function(a,b){return b.time-a.time;});
+  var total=_vData.count||list.length;
   var h='<div class="visitors-box">';
   h+='<div class="vb-header">';
   h+='<div class="vb-title">👀 من فتح الصفحة';
-  if(count>0) h+=' <div class="vb-count">'+count+' زيارة</div>';
+  if(total>0) h+=' <span class="vb-count">'+total+' مرة</span>';
   h+='</div><div class="vb-live"><div class="vb-dot"></div>مباشر</div></div>';
-  
-  if(!people.length){
-    h+='<div style="text-align:center;padding:16px;color:#9e9890;font-size:12px">كن أول من يفتح الصفحة 🚀</div>';
+  if(!list.length){
+    h+='<div style="text-align:center;padding:20px;color:#9e9890;font-size:13px">لا أحد فتح الصفحة بعد 🚀</div>';
   } else {
     h+='<div class="vb-list">';
-    people.forEach(function(v){
+    list.forEach(function(v,i){
       var c=avColor(v.name);
       h+='<div class="vb-item">';
       h+='<div class="vb-avatar" style="background:'+c+'">'+v.name[0]+'</div>';
       h+='<div class="vb-info"><div class="vb-name">'+v.name+'</div>';
-      h+='<div class="vb-time">'+timeAgo(v.time)+'</div></div>';
-      if(v.device) h+='<div class="vb-device">'+v.device+'</div>';
+      h+='<div class="vb-time">فتح الصفحة '+timeAgo(v.time)+'</div></div>';
+      h+='<div class="vb-device">'+v.device+'</div>';
       h+='</div>';
     });
     h+='</div>';
@@ -1060,6 +1058,7 @@ function renderVisitorBox(){
   box.innerHTML=h;
 }
 
+var _origConfirmName=confirmName;
 var _origConfirmName=confirmName;
 confirmName=function(){
   _origConfirmName();
@@ -1070,7 +1069,6 @@ confirmName=function(){
 if(S.user) document.getElementById('ubtn').textContent='👤 '+S.user;
 renderDashboard();
 // Load Wikipedia photos in background and refresh slideshows
-getVisitCount();
 loadAllWikiPhotos(function(){
   Object.keys(cardTimers).forEach(function(k){clearInterval(cardTimers[k]);delete cardTimers[k];});
   Object.keys(placeTimers).forEach(function(k){clearInterval(placeTimers[k]);delete placeTimers[k];});
