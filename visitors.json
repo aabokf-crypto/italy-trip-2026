@@ -3,6 +3,12 @@
   "visitors": [],
   "list": [
     {
+      "name": "زائر-4KPO",
+      "time": 1780986600765,
+      "device": "🖥️ Windows",
+      "anon": true
+    },
+    {
       "name": "محاسن",
       "time": 1780982085032,
       "device": "📱 iPhone",
@@ -104,5 +110,5 @@
       "device": "📱 iPhone"
     }
   ],
-  "count": 28
+  "count": 29
 }
