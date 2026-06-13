@@ -239,6 +239,37 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .noub{background:#fdf8ed;border:1px solid #e0d0a0;border-radius:10px;padding:10px 14px;margin-bottom:14px;display:none;align-items:center;gap:10px;font-size:13px;color:#6b6560}
 .noub button{margin-right:auto;background:#1a1614;color:#fff;border:none;border-radius:20px;padding:5px 12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:11px}
 
+
+/* WEATHER */
+.wx-section{margin-bottom:18px}
+.wx-title{font-size:10px;color:#9e9890;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.wx-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.wx-card{background:#fff;border:1px solid #e8e4de;border-radius:14px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.wx-header{padding:12px 16px;display:flex;align-items:center;gap:12px}
+.wx-icon{font-size:32px}
+.wx-dest{font-size:14px;font-weight:800}
+.wx-dates{font-size:10px;color:#9e9890;margin-top:2px}
+.wx-temps{display:flex;align-items:center;gap:6px;margin-top:4px}
+.wx-hi{font-size:20px;font-weight:900}
+.wx-lo{font-size:14px;font-weight:600;color:#9e9890}
+.wx-bar{display:flex;gap:0;height:6px;border-radius:3px;overflow:hidden;flex:1;margin-top:8px;max-width:120px}
+.wx-days{padding:0 16px;display:flex;gap:6px;overflow-x:auto;padding-bottom:10px}
+.wx-day{flex-shrink:0;text-align:center;min-width:44px}
+.wx-day-date{font-size:9px;color:#9e9890;margin-bottom:3px}
+.wx-day-icon{font-size:16px}
+.wx-day-hi{font-size:11px;font-weight:800;margin-top:2px}
+.wx-day-lo{font-size:10px;color:#9e9890}
+.wx-divider{height:1px;background:#f0ece6;margin:0 16px}
+.wx-info{padding:10px 16px;display:flex;flex-direction:column;gap:6px}
+.wx-row{display:flex;align-items:flex-start;gap:8px;font-size:11px}
+.wx-row-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.wx-row-text{color:#555;line-height:1.5}
+.wx-outfit{background:#f9f8f6;border-radius:10px;padding:10px 12px;margin:0 16px 12px}
+.wx-outfit-title{font-size:10px;font-weight:800;color:#1a1614;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.wx-outfit-items{display:flex;flex-wrap:wrap;gap:5px}
+.wx-item{background:#fff;border:1px solid #e8e4de;border-radius:20px;padding:3px 10px;font-size:10px;color:#555}
+.wx-alert{background:#fff8f0;border:1px solid #ffd0a0;border-radius:8px;padding:7px 10px;margin:0 16px 12px;font-size:10.5px;color:#a05000;display:flex;gap:6px;align-items:flex-start}
+
 /* ═══ RESPONSIVE ═══ */
 /* Tablet 768-1100px */
 @media(max-width:1100px){
@@ -322,6 +353,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="tab" onclick="showPg('acts',this)">👍 الفعاليات</button>
       <button class="tab" onclick="showPg('tl',this)">🗓️ المسار</button>
       <button class="tab" onclick="showPg('cost',this)">💶 التكاليف</button>
+      <button class="tab" onclick="showPg('wx',this)">🌤️ الطقس</button>
     </div>
     <button id="ubtn" onclick="openName()">👤 أدخل اسمك</button>
   </div>
@@ -348,6 +380,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   <div id="pg-tl" class="pg">
     <p style="font-size:10px;color:#9e9890;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px">مسار الرحلة · أكتوبر ٢٠٢٦</p>
     <div class="tlwrap" id="tlwrap"></div>
+  </div>
+  <div id="pg-wx" class="pg">
+    <div class="wx-section" id="wx-content"></div>
   </div>
   <div id="pg-cost" class="pg">
     <div class="chero"><div class="cglow"></div>
@@ -682,6 +717,7 @@ function showPg(id,btn){
   if(id==='acts'){renderActs();setTimeout(startPlaceSlideshows,400)}
   if(id==='tl') renderTl();
   if(id==='cost') recalc();
+  if(id==='wx') renderWx();
 }
 
 // ═══════════════════════════════════════
@@ -983,6 +1019,141 @@ function fetchAI(name,country,days){
     var txt=d.content[0].text.replace(/```json|```/g,'').trim();
     return JSON.parse(txt);
   });
+}
+
+
+// ═══════════════════════════════════════
+// WEATHER DATA (أكتوبر ٢٠٢٦)
+// ═══════════════════════════════════════
+var WX = {
+  como: {
+    dest:'بحيرة كومو', color:'#1a6b9a', colorBg:'#eef6fc',
+    dates:'١–٣ أكتوبر ٢٠٢٦',
+    icon:'⛅', condition:'معتدل مع بعض الغيوم',
+    hi:17, lo:10,
+    days:[
+      {date:'١ أكت',icon:'⛅',hi:16,lo:10},
+      {date:'٢ أكت',icon:'🌤️',hi:17,lo:11},
+      {date:'٣ أكت',icon:'🌥️',hi:15,lo:9}
+    ],
+    info:[
+      {i:'🌡️',t:'درجات الحرارة بين 9–17°C — الأيام دافئة والليالي باردة'},
+      {i:'💧',t:'احتمال أمطار خفيفة بين الحين والآخر — خاصة المساء'},
+      {i:'🍂',t:'أوراق الخريف تبدأ بالتحول للذهبي — المنظر رائع'},
+      {i:'☀️',t:'متوسط ساعات الشمس ٥–٦ ساعات يومياً'}
+    ],
+    alert:'تيتليس أبرد بكثير! درجة الحرارة على الجبل -3 إلى +2°C',
+    outfit:{
+      title:'👗 الزي المناسب لكومو',
+      items:['جاكيت خفيف','طبقات متعددة','حذاء مريح للمشي','مظلة صغيرة','وشاح خفيف','كنزة للمساء']
+    }
+  },
+  swiss: {
+    dest:'لوتسيرن', color:'#b02020', colorBg:'#fdf0f0',
+    dates:'٤–٦ أكتوبر ٢٠٢٦',
+    icon:'🌥️', condition:'بارد مع غيوم — تيتليس ثلج',
+    hi:14, lo:6,
+    days:[
+      {date:'٤ أكت',icon:'🌥️',hi:13,lo:7},
+      {date:'٥ أكت',icon:'⛅',hi:14,lo:6},
+      {date:'٦ أكت',icon:'🌧️',hi:12,lo:5}
+    ],
+    info:[
+      {i:'🌡️',t:'لوتسيرن: 5–14°C — بارد نسبياً'},
+      {i:'🏔️',t:'تيتليس ٣٢٣٨م: -5 إلى 0°C — ثلج دائم'},
+      {i:'💧',t:'احتمال مطر متوسط في المدينة — احضروا مظلة'},
+      {i:'🌁',t:'ضباب خفيف على البحيرة في الصباح يضيف جمالاً'}
+    ],
+    alert:'⚠️ تيتليس: لازم جواكت شتوية ثقيلة! الحرارة تحت الصفر على الجبل',
+    outfit:{
+      title:'👗 الزي المناسب للوتسيرن',
+      items:['كوت شتوي ثقيل لتيتليس','جاكيت متوسط للمدينة','كنزة صوف','حذاء ثقيل مقاوم للماء','قفازات لتيتليس','طاقية صوف','وشاح دافئ','طبقات داخلية دافئة']
+    }
+  },
+  milan: {
+    dest:'ميلانو', color:'#8a6000', colorBg:'#fdf8ed',
+    dates:'٧–٩ أكتوبر ٢٠٢٦',
+    icon:'🌤️', condition:'معتدل ومشمس غالباً',
+    hi:19, lo:11,
+    days:[
+      {date:'٧ أكت',icon:'🌤️',hi:19,lo:12},
+      {date:'٨ أكت',icon:'⛅',hi:18,lo:11},
+      {date:'٩ أكت',icon:'🌤️',hi:20,lo:12}
+    ],
+    info:[
+      {i:'🌡️',t:'أدفأ من كومو ولوتسيرن — 11–20°C مريح للتجول'},
+      {i:'☀️',t:'أكثر إشماساً — ٦ ساعات شمس يومياً في المتوسط'},
+      {i:'💧',t:'احتمال أمطار منخفض — الطقس الأفضل في الرحلة'},
+      {i:'🛍️',t:'مثالي للتسوق في الأوتلت والشوارع الخارجية'}
+    ],
+    alert:null,
+    outfit:{
+      title:'👗 الزي المناسب لميلانو',
+      items:['جاكيت خفيف-متوسط','ملابس أنيقة للشوارع','حذاء مريح','نظارات شمسية','وشاح خفيف','طبقة إضافية للمساء']
+    }
+  }
+};
+
+function renderWx(){
+  var el=document.getElementById('wx-content');
+  if(!el) return;
+  var h='<div class="wx-title">توقعات الطقس · أكتوبر ٢٠٢٦</div><div class="wx-cards">';
+  ['como','swiss','milan'].forEach(function(k){
+    var w=WX[k];
+    // Temp gradient bar
+    var pct=Math.round(((w.hi-w.lo)/20)*100);
+    h+='<div class="wx-card">';
+    // Header
+    h+='<div class="wx-header" style="background:'+w.colorBg+'">';
+    h+='<div class="wx-icon">'+w.icon+'</div>';
+    h+='<div style="flex:1"><div class="wx-dest" style="color:'+w.color+'">'+w.dest+'</div>';
+    h+='<div class="wx-dates">'+w.dates+'</div>';
+    h+='<div class="wx-temps"><span class="wx-hi" style="color:'+w.color+'">'+w.hi+'°</span><span class="wx-lo">/ '+w.lo+'°</span>';
+    h+='<div class="wx-bar" style="background:#e0e8f0"><div style="width:'+pct+'%;background:linear-gradient(to right,#74b9e0,'+w.color+');height:100%"></div></div></div>';
+    h+='<div style="font-size:10px;color:#6b6560;margin-top:4px">'+w.condition+'</div></div></div>';
+    // Daily forecast
+    h+='<div class="wx-days">';
+    w.days.forEach(function(d){
+      h+='<div class="wx-day"><div class="wx-day-date">'+d.date+'</div><div class="wx-day-icon">'+d.icon+'</div><div class="wx-day-hi" style="color:'+w.color+'">'+d.hi+'°</div><div class="wx-day-lo">'+d.lo+'°</div></div>';
+    });
+    h+='</div>';
+    h+='<div class="wx-divider"></div>';
+    // Alert
+    if(w.alert){
+      h+='<div class="wx-alert"><span>⚠️</span><span>'+w.alert+'</span></div>';
+    }
+    // Info
+    h+='<div class="wx-info">';
+    w.info.forEach(function(i){
+      h+='<div class="wx-row"><span class="wx-row-icon">'+i.i+'</span><span class="wx-row-text">'+i.t+'</span></div>';
+    });
+    h+='</div>';
+    // Outfit
+    h+='<div class="wx-outfit">';
+    h+='<div class="wx-outfit-title">'+w.outfit.title+'</div>';
+    h+='<div class="wx-outfit-items">';
+    w.outfit.items.forEach(function(item){
+      h+='<div class="wx-item">'+item+'</div>';
+    });
+    h+='</div></div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  // General tips
+  h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;margin-top:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;color:#1a1614;margin-bottom:10px">🧳 نصائح عامة للرحلة</div>';
+  [
+    {i:'🌡️',t:'درجات الحرارة تتفاوت: كومو أدفأ ← لوتسيرن أبرد ← ميلانو أدفأ — احضروا طبقات متعددة'},
+    {i:'🎒',t:'الطبقات (Layering) هي الحل — جاكيت خارجي + كنزة داخلية + قميص'},
+    {i:'👟',t:'حذاء مريح للمشي ضروري — ستمشون مسافات طويلة يومياً'},
+    {i:'🧥',t:'لتيتليس تحديداً: جاكيت شتوي ثقيل إجباري — الحرارة تحت الصفر'},
+    {i:'☂️',t:'مظلة صغيرة قابلة للطي — احتمال أمطار خفيفة في أكتوبر'},
+    {i:'🕶️',t:'نظارات شمسية — خاصة في ميلانو والأماكن المفتوحة'},
+  ].forEach(function(t){
+    h+='<div class="wx-row" style="margin-bottom:6px"><span class="wx-row-icon">'+t.i+'</span><span class="wx-row-text">'+t.t+'</span></div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
 }
 
 // ═══════════════════════════════════════
