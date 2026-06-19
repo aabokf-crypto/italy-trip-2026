@@ -3,6 +3,12 @@
   "visitors": [],
   "list": [
     {
+      "name": "عبدالرحمن",
+      "time": 1781898318143,
+      "device": "📱 iPhone",
+      "anon": false
+    },
+    {
       "name": "زائر-YH2T",
       "time": 1781802830263,
       "device": "🌐 متصفح",
@@ -79,12 +85,6 @@
       "time": 1781433510287,
       "device": "🖥️ Windows",
       "anon": true
-    },
-    {
-      "name": "عبدالرحمن",
-      "time": 1781423414574,
-      "device": "📱 iPhone",
-      "anon": false
     },
     {
       "name": "زائر-2X27",
@@ -279,5 +279,5 @@
       "anon": true
     }
   ],
-  "count": 68
+  "count": 69
 }
