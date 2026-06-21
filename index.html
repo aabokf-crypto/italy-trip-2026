@@ -270,6 +270,54 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .wx-item{background:#fff;border:1px solid #e8e4de;border-radius:20px;padding:3px 10px;font-size:10px;color:#555}
 .wx-alert{background:#fff8f0;border:1px solid #ffd0a0;border-radius:8px;padding:7px 10px;margin:0 16px 12px;font-size:10.5px;color:#a05000;display:flex;gap:6px;align-items:flex-start}
 
+
+/* VISA PAGE */
+.visa-hero{background:linear-gradient(135deg,#1a3a5c,#2d5a8a);border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden}
+.visa-hero-glow{position:absolute;top:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:#4a9fd4;opacity:.08}
+.visa-hero-title{font-size:18px;font-weight:900;margin-bottom:4px}
+.visa-hero-sub{font-size:12px;opacity:.7;margin-bottom:14px}
+.visa-badges{display:flex;gap:8px;flex-wrap:wrap}
+.visa-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700}
+.visa-badge.ok{background:rgba(46,204,113,.25);border-color:rgba(46,204,113,.5)}
+.visa-badge.warn{background:rgba(231,76,60,.25);border-color:rgba(231,76,60,.5)}
+.visa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:16px}
+.visa-card{background:#fff;border:1px solid #e8e4de;border-radius:14px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.visa-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f0ece6}
+.visa-card-icon{font-size:22px}
+.visa-card-title{font-size:13px;font-weight:800;color:#1a1614}
+.visa-card-sub{font-size:10px;color:#9e9890;margin-top:1px}
+.visa-steps{padding:10px 16px;display:flex;flex-direction:column;gap:0}
+.visa-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f3ef;align-items:flex-start}
+.visa-step:last-child{border-bottom:none}
+.visa-step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;margin-top:1px}
+.visa-step-content{}
+.visa-step-title{font-size:12px;font-weight:700;color:#1a1614;margin-bottom:2px}
+.visa-step-desc{font-size:11px;color:#6b6560;line-height:1.55}
+.visa-docs{padding:10px 16px;display:flex;flex-direction:column;gap:7px}
+.visa-doc{display:flex;align-items:flex-start;gap:9px;padding:7px 10px;background:#f9f8f6;border-radius:9px}
+.visa-doc-icon{font-size:18px;flex-shrink:0}
+.visa-doc-text{font-size:11.5px;color:#1a1614;font-weight:600;line-height:1.4}
+.visa-doc-sub{font-size:10px;color:#9e9890;margin-top:1px}
+.visa-doc.must{border-right:3px solid #e74c3c}
+.visa-doc.opt{border-right:3px solid #27ae60}
+.visa-timeline{padding:10px 16px;display:flex;flex-direction:column;gap:0}
+.visa-tl-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #f5f3ef;align-items:center}
+.visa-tl-item:last-child{border-bottom:none}
+.visa-tl-icon{font-size:18px;flex-shrink:0}
+.visa-tl-label{font-size:11px;color:#9e9890;min-width:100px}
+.visa-tl-val{font-size:12px;font-weight:700;color:#1a1614}
+.visa-tl-val.green{color:#27ae60}
+.visa-tl-val.red{color:#e74c3c}
+.visa-tl-val.orange{color:#e67e22}
+.visa-tip-box{background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.visa-tip-title{font-size:12px;font-weight:800;color:#1a1614;margin-bottom:10px}
+.visa-tip{display:flex;gap:9px;margin-bottom:8px;align-items:flex-start;font-size:11.5px;color:#555;line-height:1.55}
+.visa-tip:last-child{margin-bottom:0}
+.visa-contact{background:#eef6fc;border:1px solid #b8d8f0;border-radius:10px;padding:10px 14px;margin-top:12px}
+.visa-contact-title{font-size:11px;font-weight:800;color:#1a3a5c;margin-bottom:7px}
+.visa-contact-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#2c5f8a;margin-bottom:5px}
+.visa-contact-row:last-child{margin-bottom:0}
+
 /* ═══ RESPONSIVE ═══ */
 /* Tablet 768-1100px */
 @media(max-width:1100px){
@@ -354,6 +402,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="tab" onclick="showPg('tl',this)">🗓️ المسار</button>
       <button class="tab" onclick="showPg('cost',this)">💶 التكاليف</button>
       <button class="tab" onclick="showPg('wx',this)">🌤️ الطقس</button>
+      <button class="tab" onclick="showPg('visa',this)">📋 التأشيرة</button>
     </div>
     <button id="ubtn" onclick="openName()">👤 أدخل اسمك</button>
   </div>
@@ -383,6 +432,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   </div>
   <div id="pg-wx" class="pg">
     <div class="wx-section" id="wx-content"></div>
+  </div>
+  <div id="pg-visa" class="pg">
+    <div id="visa-content"></div>
   </div>
   <div id="pg-cost" class="pg">
     <div class="chero"><div class="cglow"></div>
@@ -718,6 +770,7 @@ function showPg(id,btn){
   if(id==='tl') renderTl();
   if(id==='cost') recalc();
   if(id==='wx') renderWx();
+  if(id==='visa') renderVisa();
 }
 
 // ═══════════════════════════════════════
@@ -1153,6 +1206,131 @@ function renderWx(){
     h+='<div class="wx-row" style="margin-bottom:6px"><span class="wx-row-icon">'+t.i+'</span><span class="wx-row-text">'+t.t+'</span></div>';
   });
   h+='</div>';
+  el.innerHTML=h;
+}
+
+
+// ═══════════════════════════════════════
+// VISA INFO
+// ═══════════════════════════════════════
+function renderVisa(){
+  var el=document.getElementById('visa-content');
+  if(!el) return;
+  var h='';
+
+  // Hero
+  h+='<div class="visa-hero"><div class="visa-hero-glow"></div>';
+  h+='<div class="visa-hero-title">🛂 متطلبات التأشيرة</div>';
+  h+='<div class="visa-hero-sub">للمواطنين السعوديين · رحلة إيطاليا وسويسرا أكتوبر ٢٠٢٦</div>';
+  h+='<div class="visa-badges">';
+  h+='<span class="visa-badge warn">🇸🇦 جواز سعودي → تأشيرة شنغن مطلوبة</span>';
+  h+='<span class="visa-badge ok">🇮🇹 إيطاليا = شنغن</span>';
+  h+='<span class="visa-badge ok">🇨🇭 سويسرا = شنغن</span>';
+  h+='<span class="visa-badge">📅 تأشيرة واحدة تكفي الاثنتين</span>';
+  h+='</div></div>';
+
+  h+='<div class="visa-grid">';
+
+  // Card 1: Overview
+  h+='<div class="visa-card">';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">🌍</span><div><div class="visa-card-title">نوع التأشيرة</div><div class="visa-card-sub">Schengen Short-Stay Visa - Type C</div></div></div>';
+  h+='<div class="visa-timeline">';
+  [
+    {i:'📋',l:'نوع التأشيرة',v:'شنغن قصيرة الإقامة (Type C)',c:''},
+    {i:'📅',l:'المدة المسموحة',v:'حتى 90 يوم كل 180 يوم',c:'green'},
+    {i:'🏛️',l:'الجهة المختصة',v:'سفارة إيطاليا بالرياض',c:''},
+    {i:'⏱️',l:'وقت المعالجة',v:'٧–١٥ يوم عمل',c:'orange'},
+    {i:'💰',l:'رسوم التأشيرة',v:'٨٠ يورو / شخص (٢٤٠ ريال)',c:''},
+    {i:'👥',l:'عدد المتقدمين',v:'١٠ أشخاص — ١٠ ملفات منفصلة',c:'orange'},
+    {i:'📍',l:'مكان التقديم',v:'VFS Global الرياض أو جدة',c:''},
+    {i:'🎯',l:'البدء بالتقديم',v:'قبل ٣–٤ أسابيع من السفر',c:'red'},
+  ].forEach(function(r){
+    h+='<div class="visa-tl-item"><span class="visa-tl-icon">'+r.i+'</span><span class="visa-tl-label">'+r.l+'</span><span class="visa-tl-val '+(r.c||'')+'">'+r.v+'</span></div>';
+  });
+  h+='</div></div>';
+
+  // Card 2: Documents
+  h+='<div class="visa-card">';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📂</span><div><div class="visa-card-title">المستندات المطلوبة</div><div class="visa-card-sub">لكل شخص من المجموعة</div></div></div>';
+  h+='<div class="visa-docs">';
+  var docs=[
+    {i:'📘',t:'جواز سفر سارٍ',s:'صالح ٦ أشهر بعد تاريخ العودة + صفحتان فارغتان',must:true},
+    {i:'🖼️',t:'صور شخصية',s:'٢ صورة بيضاء خلفية ٣.٥×٤.٥ سم',must:true},
+    {i:'📋',t:'استمارة الطلب',s:'نموذج شنغن مكتمل وموقّع — من موقع VFS Global',must:true},
+    {i:'✈️',t:'حجوزات الطيران',s:'تذاكر مؤكدة ذهاباً وإياباً',must:true},
+    {i:'🏨',t:'حجوزات الفنادق/Airbnb',s:'تأكيد جميع ليالي الإقامة',must:true},
+    {i:'💳',t:'كشف حساب بنكي',s:'آخر ٣ أشهر — يُثبت القدرة المالية',must:true},
+    {i:'📄',t:'تأمين سفر',s:'يغطي ٣٠٠٠٠ يورو على الأقل — Schengen Travel Insurance',must:true},
+    {i:'🏢',t:'رسالة من جهة العمل',s:'تفيد بالإجازة + الراتب + الوظيفة',must:true},
+    {i:'👨‍👩‍👧',t:'وثائق العلاقة العائلية',s:'لربط أفراد الأسرة (عقد زواج، شهادات ميلاد)',must:false},
+    {i:'🏠',t:'ملكية عقار أو سيارة',s:'يُقوّي ملف الطلب ويُثبت الارتباط بالمملكة',must:false},
+  ];
+  docs.forEach(function(d){
+    h+='<div class="visa-doc '+(d.must?'must':'opt')+'"><span class="visa-doc-icon">'+d.i+'</span><div><div class="visa-doc-text">'+d.t+'</div><div class="visa-doc-sub">'+d.s+'</div></div></div>';
+  });
+  h+='</div></div>';
+
+  // Card 3: Steps
+  h+='<div class="visa-card">';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📝</span><div><div class="visa-card-title">خطوات التقديم</div><div class="visa-card-sub">من الآن حتى يوم السفر</div></div></div>';
+  h+='<div class="visa-steps">';
+  var steps=[
+    {n:'١',c:'#1a6b9a',t:'احجز رحلات الطيران والإقامة أولاً',d:'التأشيرة تطلب حجوزات مؤكدة — ابدأ بالحجز قبل التقديم'},
+    {n:'٢',c:'#27ae60',t:'اشتري تأمين السفر',d:'Schengen Travel Insurance — متاح أونلاين من ٥٠–١٠٠ ريال/شخص'},
+    {n:'٣',c:'#e67e22',t:'اجمع المستندات لكل شخص',d:'كل شخص يحتاج ملفاً كاملاً — ١٠ ملفات منفصلة للمجموعة'},
+    {n:'٤',c:'#b02020',t:'احجز موعداً في VFS Global',d:'vfsglobal.com/sa ← اختر إيطاليا ← الرياض أو جدة'},
+    {n:'٥',c:'#8a6000',t:'قدّم الطلبات شخصياً',d:'كل شخص يحضر بنفسه لأخذ البصمة — أو مع الوالدين للأطفال'},
+    {n:'٦',c:'#6b2fa0',t:'انتظر النتيجة ٧–١٥ يوم',d:'يمكن تتبع الطلب أونلاين عبر موقع VFS'},
+  ];
+  steps.forEach(function(s){
+    h+='<div class="visa-step"><div class="visa-step-num" style="background:'+s.c+'">'+s.n+'</div><div class="visa-step-content"><div class="visa-step-title">'+s.t+'</div><div class="visa-step-desc">'+s.d+'</div></div></div>';
+  });
+  h+='</div></div>';
+
+  // Card 4: Timeline
+  h+='<div class="visa-card">';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">🗓️</span><div><div class="visa-card-title">الجدول الزمني المقترح</div><div class="visa-card-sub">للسفر في أكتوبر ٢٠٢٦</div></div></div>';
+  h+='<div class="visa-timeline">';
+  [
+    {i:'🔴',l:'الآن — يونيو',v:'احجز الطيران والإقامة فوراً'},
+    {i:'🟠',l:'يوليو',v:'اجمع المستندات واشتري التأمين'},
+    {i:'🟡',l:'أغسطس',v:'احجز موعد VFS وقدّم الطلبات'},
+    {i:'🟢',l:'سبتمبر',v:'استلم التأشيرات ✅'},
+    {i:'✈️',l:'١ أكتوبر',v:'انطلقوا بالرحلة 🎉'},
+  ].forEach(function(r){
+    h+='<div class="visa-tl-item"><span class="visa-tl-icon">'+r.i+'</span><span class="visa-tl-label">'+r.l+'</span><span class="visa-tl-val">'+r.v+'</span></div>';
+  });
+  h+='</div></div>';
+
+  h+='</div>'; // end grid
+
+  // Tips box
+  h+='<div class="visa-tip-box">';
+  h+='<div class="visa-tip-title">💡 نصائح مهمة</div>';
+  [
+    {i:'🏛️',t:'السفارة الإيطالية هي المختصة لأن إيطاليا أول دولة شنغن ستدخلونها'},
+    {i:'👥',t:'١٠ أشخاص = ١٠ ملفات منفصلة — لا يمكن تقديم ملف واحد للعائلة كلها (إلا الأطفال مع والديهم)'},
+    {i:'💰',t:'كشف الحساب البنكي يجب يُظهر ٥٠٠–١٠٠٠ يورو على الأقل لكل شخص + تذاكر الطيران مدفوعة'},
+    {i:'📅',t:'لا تحجز تذاكر غير قابلة للاسترداد قبل الحصول على التأشيرة — استخدم حجوزات قابلة للتعديل'},
+    {i:'🔄',t:'سويسرا ليست في الاتحاد الأوروبي لكنها في منطقة شنغن — نفس التأشيرة تكفي للبلدين'},
+    {i:'⚡',t:'اطلبوا تأشيرة متعددة الدخول (Multiple Entry) لتسهيل رحلات مستقبلية'},
+  ].forEach(function(t){
+    h+='<div class="visa-tip"><span style="font-size:16px;flex-shrink:0">'+t.i+'</span><span>'+t.t+'</span></div>';
+  });
+
+  // Contact info
+  h+='<div class="visa-contact">';
+  h+='<div class="visa-contact-title">📞 جهات التواصل المهمة</div>';
+  [
+    {i:'🌐',t:'VFS Global إيطاليا: vfsglobal.com/sa'},
+    {i:'🏛️',t:'السفارة الإيطالية الرياض: ita-riyadh@esteri.it'},
+    {i:'📱',t:'VFS Saudi Arabia: 920033360'},
+    {i:'🌐',t:'تأمين السفر: europ-assistance.com.sa | allianz-travel.sa'},
+  ].forEach(function(c){
+    h+='<div class="visa-contact-row"><span>'+c.i+'</span><span>'+c.t+'</span></div>';
+  });
+  h+='</div></div>';
+
   el.innerHTML=h;
 }
 
