@@ -1211,7 +1211,7 @@ function renderWx(){
 
 
 // ═══════════════════════════════════════
-// VISA INFO
+// VISA INFO (Updated 2026)
 // ═══════════════════════════════════════
 function renderVisa(){
   var el=document.getElementById('visa-content');
@@ -1220,30 +1220,54 @@ function renderVisa(){
 
   // Hero
   h+='<div class="visa-hero"><div class="visa-hero-glow"></div>';
-  h+='<div class="visa-hero-title">🛂 متطلبات التأشيرة</div>';
+  h+='<div class="visa-hero-title">🛂 متطلبات التأشيرة — تحديث ٢٠٢٦</div>';
   h+='<div class="visa-hero-sub">للمواطنين السعوديين · رحلة إيطاليا وسويسرا أكتوبر ٢٠٢٦</div>';
   h+='<div class="visa-badges">';
-  h+='<span class="visa-badge warn">🇸🇦 جواز سعودي → تأشيرة شنغن مطلوبة</span>';
-  h+='<span class="visa-badge ok">🇮🇹 إيطاليا = شنغن</span>';
-  h+='<span class="visa-badge ok">🇨🇭 سويسرا = شنغن</span>';
-  h+='<span class="visa-badge">📅 تأشيرة واحدة تكفي الاثنتين</span>';
+  h+='<span class="visa-badge warn">🇸🇦 جواز سعودي ← تأشيرة شنغن مطلوبة</span>';
+  h+='<span class="visa-badge ok">🇮🇹 إيطاليا = شنغن ✅</span>';
+  h+='<span class="visa-badge ok">🇨🇭 سويسرا = شنغن ✅</span>';
+  h+='<span class="visa-badge">📋 تأشيرة واحدة تكفي البلدين</span>';
+  h+='</div></div>';
+
+  // LINKS BAR
+  h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;color:#1a1614;margin-bottom:10px">🔗 روابط التقديم المباشرة</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px">';
+  var links=[
+    {icon:'🌐',title:'حجز موعد VFS الرياض/جدة/الخبر',url:'https://ksa.consortiumforitalianvisaservices.com/appointment',color:'#1a6b9a',desc:'الموقع الرسمي لحجز موعد تأشيرة إيطاليا'},
+    {icon:'📋',title:'تعبئة نموذج الطلب إلكترونياً',url:'https://e-applicationvisa.esteri.it',color:'#27ae60',desc:'البوابة الرسمية لوزارة الخارجية الإيطالية'},
+    {icon:'📄',title:'تحميل نموذج الطلب PDF',url:'https://visa.vfsglobal.com/sau/ar/ita/apply-visa',color:'#8a6000',desc:'VFS Global — قائمة المستندات المطلوبة'},
+    {icon:'🔍',title:'تتبع حالة طلب التأشيرة',url:'https://visa.vfsglobal.com/sau/ar/ita/track-your-application',color:'#9b59b6',desc:'تحقق من حالة طلبك بعد التقديم'},
+    {icon:'🛡️',title:'تأمين السفر الموصى به',url:'https://www.axa-travel-insurance.com',color:'#e74c3c',desc:'AXA — معتمد لتأشيرة شنغن (٣٠,٠٠٠+ يورو)'},
+    {icon:'📞',title:'VFS Saudi Arabia مباشر',url:'tel:920033360',color:'#16a085',desc:'٩٢٠٠٣٣٣٦٠ — خط الدعم باللغة العربية'},
+  ];
+  links.forEach(function(l){
+    h+='<a href="'+l.url+'" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;gap:10px;padding:10px 12px;background:'+l.color+'11;border:1px solid '+l.color+'33;border-radius:10px;transition:all .2s" onmouseover="this.style.background=''+l.color+'22'" onmouseout="this.style.background=''+l.color+'11'">';
+    h+='<span style="font-size:20px">'+l.icon+'</span>';
+    h+='<div><div style="font-size:12px;font-weight:700;color:'+l.color+'">'+l.title+'</div>';
+    h+='<div style="font-size:10px;color:#6b6560;margin-top:1px">'+l.desc+'</div></div></a>';
+  });
   h+='</div></div>';
 
   h+='<div class="visa-grid">';
 
-  // Card 1: Overview
+  // Card 1: Key Info
   h+='<div class="visa-card">';
-  h+='<div class="visa-card-hdr"><span class="visa-card-icon">🌍</span><div><div class="visa-card-title">نوع التأشيرة</div><div class="visa-card-sub">Schengen Short-Stay Visa - Type C</div></div></div>';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📊</span><div><div class="visa-card-title">معلومات أساسية</div><div class="visa-card-sub">أرقام ومعلومات محدّثة ٢٠٢٦</div></div></div>';
   h+='<div class="visa-timeline">';
   [
-    {i:'📋',l:'نوع التأشيرة',v:'شنغن قصيرة الإقامة (Type C)',c:''},
-    {i:'📅',l:'المدة المسموحة',v:'حتى 90 يوم كل 180 يوم',c:'green'},
-    {i:'🏛️',l:'الجهة المختصة',v:'سفارة إيطاليا بالرياض',c:''},
-    {i:'⏱️',l:'وقت المعالجة',v:'٧–١٥ يوم عمل',c:'orange'},
-    {i:'💰',l:'رسوم التأشيرة',v:'٨٠ يورو / شخص (٢٤٠ ريال)',c:''},
-    {i:'👥',l:'عدد المتقدمين',v:'١٠ أشخاص — ١٠ ملفات منفصلة',c:'orange'},
-    {i:'📍',l:'مكان التقديم',v:'VFS Global الرياض أو جدة',c:''},
-    {i:'🎯',l:'البدء بالتقديم',v:'قبل ٣–٤ أسابيع من السفر',c:'red'},
+    {i:'💰',l:'رسوم السفارة',v:'٩٠ يورو / بالغ (~٣٢٢ ريال)',c:'orange'},
+    {i:'👶',l:'الأطفال ٦–١٢ سنة',v:'٤٥ يورو (~١٦١ ريال)',c:''},
+    {i:'🎁',l:'أقل من ٦ سنوات',v:'مجاناً ✅',c:'green'},
+    {i:'🏢',l:'رسوم VFS إضافية',v:'~١٣٠ ريال/شخص',c:'orange'},
+    {i:'⏱️',l:'وقت المعالجة',v:'٧–١٥ يوم عمل',c:''},
+    {i:'📅',l:'أقصى فترة للتقديم',v:'٣ أشهر قبل السفر',c:''},
+    {i:'⚡',l:'أدنى فترة للتقديم',v:'١٥ يوم قبل السفر',c:'red'},
+    {i:'📍',l:'مراكز VFS في السعودية',v:'الرياض · جدة · الخبر',c:''},
+    {i:'🏙️',l:'الرياض — موقع VFS',v:'مول لكولايزر، بوابة ٢',c:''},
+    {i:'🏙️',l:'جدة — موقع VFS',v:'مركز تسهيل — المحمدية',c:''},
+    {i:'🔄',l:'نوع التأشيرة الموصى به',v:'Multiple Entry (متعددة الدخول)',c:'green'},
+    {i:'⏳',l:'مدة الإقامة المسموحة',v:'٩٠ يوم كل ١٨٠ يوم',c:''},
   ].forEach(function(r){
     h+='<div class="visa-tl-item"><span class="visa-tl-icon">'+r.i+'</span><span class="visa-tl-label">'+r.l+'</span><span class="visa-tl-val '+(r.c||'')+'">'+r.v+'</span></div>';
   });
@@ -1251,83 +1275,108 @@ function renderVisa(){
 
   // Card 2: Documents
   h+='<div class="visa-card">';
-  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📂</span><div><div class="visa-card-title">المستندات المطلوبة</div><div class="visa-card-sub">لكل شخص من المجموعة</div></div></div>';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📂</span><div><div class="visa-card-title">المستندات المطلوبة</div><div class="visa-card-sub">لكل شخص من المجموعة العشرة 🔴 إلزامي 🟢 يقوّي الملف</div></div></div>';
   h+='<div class="visa-docs">';
   var docs=[
-    {i:'📘',t:'جواز سفر سارٍ',s:'صالح ٦ أشهر بعد تاريخ العودة + صفحتان فارغتان',must:true},
-    {i:'🖼️',t:'صور شخصية',s:'٢ صورة بيضاء خلفية ٣.٥×٤.٥ سم',must:true},
-    {i:'📋',t:'استمارة الطلب',s:'نموذج شنغن مكتمل وموقّع — من موقع VFS Global',must:true},
-    {i:'✈️',t:'حجوزات الطيران',s:'تذاكر مؤكدة ذهاباً وإياباً',must:true},
-    {i:'🏨',t:'حجوزات الفنادق/Airbnb',s:'تأكيد جميع ليالي الإقامة',must:true},
-    {i:'💳',t:'كشف حساب بنكي',s:'آخر ٣ أشهر — يُثبت القدرة المالية',must:true},
-    {i:'📄',t:'تأمين سفر',s:'يغطي ٣٠٠٠٠ يورو على الأقل — Schengen Travel Insurance',must:true},
-    {i:'🏢',t:'رسالة من جهة العمل',s:'تفيد بالإجازة + الراتب + الوظيفة',must:true},
-    {i:'👨‍👩‍👧',t:'وثائق العلاقة العائلية',s:'لربط أفراد الأسرة (عقد زواج، شهادات ميلاد)',must:false},
-    {i:'🏠',t:'ملكية عقار أو سيارة',s:'يُقوّي ملف الطلب ويُثبت الارتباط بالمملكة',must:false},
+    {i:'📘',t:'جواز سفر ساري المفعول',s:'صالح ٣ أشهر على الأقل بعد انتهاء التأشيرة + صفحتان فارغتان. الجواز الدبلوماسي يحتاج تصريح وزارة الخارجية السعودية',must:true},
+    {i:'🪪',t:'بطاقة الهوية الوطنية',s:'للمواطنين السعوديين — أو الإقامة السارية للمقيمين',must:true},
+    {i:'👨‍👩‍👧',t:'كرت العائلة مترجم',s:'للسفر مع الزوجة أو الأطفال — يجب ترجمته للإنجليزية',must:true},
+    {i:'🖼️',t:'صورتان شخصيتان',s:'خلفية بيضاء، مقاس ٣٥×٤٥ مم، بدون نظارات، وجه واضح — لا أقدم من ٦ أشهر',must:true},
+    {i:'📋',t:'استمارة طلب التأشيرة',s:'تعبئة إلكترونية من e-applicationvisa.esteri.it ثم طباعتها موقّعة — أو تحميل PDF يدوياً',must:true},
+    {i:'✈️',t:'حجوزات طيران مؤكدة',s:'تذاكر ذهاب وإياب مؤكدة — يفضل قابلة للتعديل قبل صدور التأشيرة',must:true},
+    {i:'🏨',t:'حجوزات الإقامة كاملة',s:'حجز مؤكد لكل ليالي الرحلة (Airbnb أو فندق) — يجب أن يغطي كامل المدة',must:true},
+    {i:'💳',t:'كشف حساب بنكي',s:'آخر ٣ أشهر مختوم — رصيد لا يقل عن ١٠,٠٠٠ ريال/شخص بالغ — باللغة الإنجليزية',must:true},
+    {i:'🛡️',t:'تأمين سفر شنغن',s:'يغطي ٣٠,٠٠٠ يورو على الأقل — يشمل جميع دول شنغن — AXA أو Allianz موصى بهما',must:true},
+    {i:'🏢',t:'رسالة من جهة العمل',s:'تفيد بالوظيفة والراتب ومدة الإجازة — مصدّقة — باللغة الإنجليزية',must:true},
+    {i:'🏠',t:'كرت العائلة / عقد زواج',s:'مترجم للإنجليزية — يربط أفراد المجموعة بعضهم ببعض',must:false},
+    {i:'📜',t:'سجل تجاري أو ملكية عقار',s:'يُثبت الارتباط بالمملكة ويقلل احتمال الرفض بشكل كبير',must:false},
+    {i:'🛂',t:'تأشيرات شنغن سابقة',s:'إحضار الجواز القديم إن كان فيه تأشيرات سابقة — يعزز الملف',must:false},
   ];
   docs.forEach(function(d){
-    h+='<div class="visa-doc '+(d.must?'must':'opt')+'"><span class="visa-doc-icon">'+d.i+'</span><div><div class="visa-doc-text">'+d.t+'</div><div class="visa-doc-sub">'+d.s+'</div></div></div>';
+    h+='<div class="visa-doc '+(d.must?'must':'opt')+'">';
+    h+='<span class="visa-doc-icon">'+d.i+'</span>';
+    h+='<div><div class="visa-doc-text">'+(d.must?'🔴 ':'🟢 ')+d.t+'</div><div class="visa-doc-sub">'+d.s+'</div></div></div>';
   });
   h+='</div></div>';
 
-  // Card 3: Steps
+  // Card 3: Steps with real details
   h+='<div class="visa-card">';
-  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📝</span><div><div class="visa-card-title">خطوات التقديم</div><div class="visa-card-sub">من الآن حتى يوم السفر</div></div></div>';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📝</span><div><div class="visa-card-title">خطوات التقديم بالتفصيل</div><div class="visa-card-sub">الإجراء الكامل خطوة بخطوة</div></div></div>';
   h+='<div class="visa-steps">';
   var steps=[
-    {n:'١',c:'#1a6b9a',t:'احجز رحلات الطيران والإقامة أولاً',d:'التأشيرة تطلب حجوزات مؤكدة — ابدأ بالحجز قبل التقديم'},
-    {n:'٢',c:'#27ae60',t:'اشتري تأمين السفر',d:'Schengen Travel Insurance — متاح أونلاين من ٥٠–١٠٠ ريال/شخص'},
-    {n:'٣',c:'#e67e22',t:'اجمع المستندات لكل شخص',d:'كل شخص يحتاج ملفاً كاملاً — ١٠ ملفات منفصلة للمجموعة'},
-    {n:'٤',c:'#b02020',t:'احجز موعداً في VFS Global',d:'vfsglobal.com/sa ← اختر إيطاليا ← الرياض أو جدة'},
-    {n:'٥',c:'#8a6000',t:'قدّم الطلبات شخصياً',d:'كل شخص يحضر بنفسه لأخذ البصمة — أو مع الوالدين للأطفال'},
-    {n:'٦',c:'#6b2fa0',t:'انتظر النتيجة ٧–١٥ يوم',d:'يمكن تتبع الطلب أونلاين عبر موقع VFS'},
+    {n:'١',c:'#1a6b9a',t:'احجز الطيران والإقامة أولاً',d:'التأشيرة تشترط حجوزات مؤكدة. احجز تذاكر قابلة للتعديل وAirbnb/فندق لكل الرحلة قبل التقديم.'},
+    {n:'٢',c:'#27ae60',t:'اشتري تأمين السفر لكل أفراد المجموعة',d:'يجب أن يغطي ٣٠,٠٠٠ يورو على الأقل لكل شخص ويشمل سويسرا وإيطاليا. AXA أو Allianz Travel موصى بهما.'},
+    {n:'٣',c:'#e67e22',t:'عبّئ النموذج إلكترونياً',d:'ادخل e-applicationvisa.esteri.it — أنشئ حساباً — عبّئ بياناتك بالحروف اللاتينية الكبيرة — اطبع واوقّع النموذج.'},
+    {n:'٤',c:'#9b59b6',t:'اجمع مستندات كل شخص في ملف منفصل',d:'١٠ أشخاص = ١٠ ملفات منفصلة. ترتيب الأوراق: استمارة → جواز → صور → طيران → فندق → بنك → تأمين → عمل → عائلة.'},
+    {n:'٥',c:'#b02020',t:'احجز موعداً في VFS',d:'ادخل ksa.consortiumforitalianvisaservices.com ← اختر المدينة ← حدد موعداً لكل شخص. المواعيد قد تكون محجوزة أسابيع مسبقاً.'},
+    {n:'٦',c:'#8a6000',t:'احضر البصمة شخصياً',d:'كل شخص يحضر شخصياً. الأطفال أقل من ١٢ سنة لا يحتاجون بصمة. ارتدِ ملابس مرتبة وأحضر كل المستندات.'},
+    {n:'٧',c:'#16a085',t:'ادفع الرسوم',d:'٩٠ يورو رسوم السفارة + ~١٣٠ ريال رسوم VFS لكل شخص بالغ. يمكن الدفع نقداً أو بطاقة بنكية.'},
+    {n:'٨',c:'#2c3e50',t:'انتظر ٧–١٥ يوم وتابع طلبك',d:'تتبع الطلب من visa.vfsglobal.com/sau/ar/ita/track-your-application باستخدام رقم المرجع.'},
   ];
   steps.forEach(function(s){
-    h+='<div class="visa-step"><div class="visa-step-num" style="background:'+s.c+'">'+s.n+'</div><div class="visa-step-content"><div class="visa-step-title">'+s.t+'</div><div class="visa-step-desc">'+s.d+'</div></div></div>';
+    h+='<div class="visa-step"><div class="visa-step-num" style="background:'+s.c+'">'+s.n+'</div>';
+    h+='<div class="visa-step-content"><div class="visa-step-title">'+s.t+'</div><div class="visa-step-desc">'+s.d+'</div></div></div>';
   });
   h+='</div></div>';
 
   // Card 4: Timeline
   h+='<div class="visa-card">';
-  h+='<div class="visa-card-hdr"><span class="visa-card-icon">🗓️</span><div><div class="visa-card-title">الجدول الزمني المقترح</div><div class="visa-card-sub">للسفر في أكتوبر ٢٠٢٦</div></div></div>';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">🗓️</span><div><div class="visa-card-title">الجدول الزمني المقترح</div><div class="visa-card-sub">للسفر ١ أكتوبر ٢٠٢٦</div></div></div>';
   h+='<div class="visa-timeline">';
   [
-    {i:'🔴',l:'الآن — يونيو',v:'احجز الطيران والإقامة فوراً'},
-    {i:'🟠',l:'يوليو',v:'اجمع المستندات واشتري التأمين'},
-    {i:'🟡',l:'أغسطس',v:'احجز موعد VFS وقدّم الطلبات'},
-    {i:'🟢',l:'سبتمبر',v:'استلم التأشيرات ✅'},
-    {i:'✈️',l:'١ أكتوبر',v:'انطلقوا بالرحلة 🎉'},
+    {i:'⚡',l:'الآن — يونيو ٢٠٢٦',v:'احجز الطيران والإقامة فوراً — المواعيد تمتلئ'},
+    {i:'🛡️',l:'يوليو ٢٠٢٦',v:'اشتري التأمين واجمع المستندات لكل شخص'},
+    {i:'📋',l:'أغسطس ٢٠٢٦',v:'عبّئ النماذج واحجز مواعيد VFS لـ ١٠ أشخاص'},
+    {i:'🏢',l:'أغسطس/سبتمبر',v:'قدّم الطلبات وادفع الرسوم في VFS'},
+    {i:'✅',l:'سبتمبر ٢٠٢٦',v:'استلم التأشيرات — ١٤+ يوم قبل السفر'},
+    {i:'✈️',l:'١ أكتوبر ٢٠٢٦',v:'انطلقوا إلى إيطاليا وسويسرا! 🎉'},
   ].forEach(function(r){
-    h+='<div class="visa-tl-item"><span class="visa-tl-icon">'+r.i+'</span><span class="visa-tl-label">'+r.l+'</span><span class="visa-tl-val">'+r.v+'</span></div>';
+    h+='<div class="visa-tl-item"><span class="visa-tl-icon">'+r.i+'</span><span class="visa-tl-label" style="font-size:10px">'+r.l+'</span><span class="visa-tl-val">'+r.v+'</span></div>';
   });
   h+='</div></div>';
 
   h+='</div>'; // end grid
 
-  // Tips box
-  h+='<div class="visa-tip-box">';
-  h+='<div class="visa-tip-title">💡 نصائح مهمة</div>';
+  // Rejection reasons
+  h+='<div style="background:#fff8f0;border:1px solid #ffd0a0;border-radius:14px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;color:#a05000;margin-bottom:10px">⚠️ أسباب الرفض الثلاثة الأكثر شيوعاً — تجنّبها</div>';
   [
-    {i:'🏛️',t:'السفارة الإيطالية هي المختصة لأن إيطاليا أول دولة شنغن ستدخلونها'},
-    {i:'👥',t:'١٠ أشخاص = ١٠ ملفات منفصلة — لا يمكن تقديم ملف واحد للعائلة كلها (إلا الأطفال مع والديهم)'},
-    {i:'💰',t:'كشف الحساب البنكي يجب يُظهر ٥٠٠–١٠٠٠ يورو على الأقل لكل شخص + تذاكر الطيران مدفوعة'},
-    {i:'📅',t:'لا تحجز تذاكر غير قابلة للاسترداد قبل الحصول على التأشيرة — استخدم حجوزات قابلة للتعديل'},
-    {i:'🔄',t:'سويسرا ليست في الاتحاد الأوروبي لكنها في منطقة شنغن — نفس التأشيرة تكفي للبلدين'},
-    {i:'⚡',t:'اطلبوا تأشيرة متعددة الدخول (Multiple Entry) لتسهيل رحلات مستقبلية'},
+    {i:'🏦',t:'كشف حساب ضعيف',d:'رصيد غير كافٍ أو كشف قديم. الحل: ١٠,٠٠٠ ريال+/شخص، آخر ٣ أشهر، مختوم من البنك بالإنجليزية'},
+    {i:'🛡️',t:'تأمين سفر غير معتمد',d:'بعض الشركات مرفوضة من السفارة. الحل: AXA أو Allianz أو اشترِه مباشرة من VFS'},
+    {i:'✈️',t:'حجوزات وهمية أو غير موثوقة',d:'حجوزات قابلة للإلغاء فوراً مشبوهة. الحل: حجوزات مؤكدة من شركات معروفة'},
+  ].forEach(function(t){
+    h+='<div style="display:flex;gap:10px;margin-bottom:9px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0">'+t.i+'</span>';
+    h+='<div><div style="font-size:12px;font-weight:700;color:#a05000">'+t.t+'</div>';
+    h+='<div style="font-size:11px;color:#6b6560;margin-top:2px;line-height:1.5">'+t.d+'</div></div></div>';
+  });
+  h+='</div>';
+
+  // Tips
+  h+='<div class="visa-tip-box">';
+  h+='<div class="visa-tip-title">💡 نصائح ذهبية</div>';
+  [
+    {i:'🏛️',t:'السفارة الإيطالية مختصة لأن إيطاليا أول دولة شنغن ستدخلونها — لا تتقدموا لأي سفارة أخرى'},
+    {i:'👥',t:'١٠ أشخاص = ١٠ ملفات منفصلة. لا يمكن دمج العائلة في ملف واحد (ماعدا الأطفال مع والديهم)'},
+    {i:'🔄',t:'اطلبوا Multiple Entry حتى لو هذه رحلة واحدة — تسهّل رحلات أوروبية مستقبلية'},
+    {i:'🇨🇭',t:'سويسرا ليست في الاتحاد الأوروبي لكنها في منطقة شنغن — نفس التأشيرة تدخلون بها البلدين'},
+    {i:'💼',t:'إذا حجزتم مع وكالة سفر معتمدة يمكنها تسريع الإجراءات وتجنب الأخطاء الشائعة'},
+    {i:'📱',t:'يمكن الآن تقديم الطلبات لبعض الجنسيات عبر تطبيق VFS — تحقق من توفر الخدمة'},
   ].forEach(function(t){
     h+='<div class="visa-tip"><span style="font-size:16px;flex-shrink:0">'+t.i+'</span><span>'+t.t+'</span></div>';
   });
 
-  // Contact info
+  // Contact
   h+='<div class="visa-contact">';
-  h+='<div class="visa-contact-title">📞 جهات التواصل المهمة</div>';
+  h+='<div class="visa-contact-title">📞 جهات الاتصال الرسمية</div>';
   [
-    {i:'🌐',t:'VFS Global إيطاليا: vfsglobal.com/sa'},
-    {i:'🏛️',t:'السفارة الإيطالية الرياض: ita-riyadh@esteri.it'},
-    {i:'📱',t:'VFS Saudi Arabia: 920033360'},
-    {i:'🌐',t:'تأمين السفر: europ-assistance.com.sa | allianz-travel.sa'},
+    {i:'🌐',t:'VFS Global إيطاليا السعودية',v:'visa.vfsglobal.com/sau/ar/ita'},
+    {i:'📅',t:'حجز موعد VFS',v:'ksa.consortiumforitalianvisaservices.com'},
+    {i:'📋',t:'البوابة الإلكترونية للنموذج',v:'e-applicationvisa.esteri.it'},
+    {i:'🏛️',t:'السفارة الإيطالية الرياض',v:'ambriad.esteri.it'},
+    {i:'📞',t:'خط VFS السعودية',v:'٩٢٠٠٣٣٣٦٠'},
+    {i:'📧',t:'البريد الإلكتروني VFS',v:'info.italysa@vfsglobal.com'},
   ].forEach(function(c){
-    h+='<div class="visa-contact-row"><span>'+c.i+'</span><span>'+c.t+'</span></div>';
+    h+='<div class="visa-contact-row"><span>'+c.i+'</span><b style="color:#1a3a5c">'+c.t+':</b><span>'+c.v+'</span></div>';
   });
   h+='</div></div>';
 
