@@ -1,4 +1,4 @@
-<!-- v1783185254 -->
+<!-- v1783186093 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -418,6 +418,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="harr hnext" onclick="hNav(1)">‹</button>
     </div>
     <div class="stats" id="statsrow"></div>
+    <div id="essentials-box"></div>
     <div class="vbox" id="vbox"><div style="text-align:center;padding:12px;color:#9e9890;font-size:12px">⏳ جاري تحميل قائمة الزوار...</div></div>
     <div class="shdr"><span class="slbl">الوجهات</span><button class="abtn" onclick="openAdd()">+ إضافة وجهة</button></div>
     <div class="dgrid" id="dgrid"></div>
@@ -564,41 +565,41 @@ if(!S.fixed) S.fixed={
   van:{label:'إيجار الفان',icon:'🚗',note:'إجمالي للمجموعة',value:1200}
 };
 if(!S.dests) S.dests=[
-  {id:'como',name:'بحيرة كومو',country:'إيطاليا 🇮🇹',days:3,startDay:1,color:'#1a6b9a',colorBg:'#eef6fc',
+  {id:'como',wk:'Lake_Como',name:'بحيرة كومو',country:'إيطاليا 🇮🇹',days:3,startDay:1,color:'#1a6b9a',colorBg:'#eef6fc',
    desc:'بحيرة كومو شمال إيطاليا — واحدة من أجمل البحيرات في العالم. تحيط بها جبال الألب وتزينها قرى ملونة تعكس صورها على المياه الصافية.',
    imgs:['https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=85','https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85','https://images.unsplash.com/photo-1580652516975-4e94f8c2b6df?w=900&q=85'],
    costs:{hotel:180,food:35,tickets:30,misc:20},
    places:[
-    {id:'v1',name:'كورنيش فارينا',price:0,img:'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500&q=80',must:true,desc:'أجمل كورنيش على بحيرة كومو — بيوت ملونة تنعكس صورها على المياه. الغروب هنا تجربة لا تُنسى.',tip:'توجّهوا للميناء الصغير عند الغروب للحصول على أجمل صورة.'},
-    {id:'v2',name:'قلعة Vezio',price:7,img:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&q=80',must:true,desc:'قلعة عمرها ألف سنة فوق فارينا. إطلالة ٣٦٠ درجة على البحيرة بكاملها.',tip:'مشي ٢٠ دقيقة عبر بستان زيتون. الطريق سهل ويستحق كل خطوة.'},
-    {id:'v3',name:'قرية بيلاجيو',price:5.5,img:'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=500&q=80',must:true,desc:'"لؤلؤة بحيرة كومو" — شوارع حجرية مزهرة ومطاعم مطلة على الماء.',tip:'العبّارة من فارينا ~٥.٥€. مطعم Ristorante Silvio للإطلالة الأجمل.'},
-    {id:'v4',name:'فيلا كارلوتا',price:17.5,img:'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=500&q=80',must:false,desc:'فيلا تاريخية مع ١٤ فداناً من الحدائق النباتية النادرة ومتحف نحت رائع.',tip:'احجز أونلاين من villacarlotta.it مسبقاً.'},
-    {id:'v5',name:'حدائق Villa Melzi',price:8,img:'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?w=500&q=80',must:false,desc:'حدائق نيوكلاسيكية على ضفة البحيرة في بيلاجيو. تماثيل رخامية وأشجار عمرها مئتي سنة.',tip:'الصباح الباكر للهدوء التام وأجمل الصور.'},
-    {id:'v6',name:'مدينة كومو',price:0,img:'https://images.unsplash.com/photo-1547780664-fcea977e5f0e?w=500&q=80',must:false,desc:'عاصمة البحيرة — كاتدرائية القرن الرابع عشر + تلفريك Brunate للإطلالة البانورامية.',tip:'تلفريك Brunate ~١٣€ ذهاباً وإياباً.'}
+    {id:'v1',wk:'Varenna',name:'كورنيش فارينا',price:0,img:'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500&q=80',must:true,desc:'أجمل كورنيش على بحيرة كومو — بيوت ملونة تنعكس صورها على المياه. الغروب هنا تجربة لا تُنسى.',tip:'توجّهوا للميناء الصغير عند الغروب للحصول على أجمل صورة.'},
+    {id:'v2',wk:'Castello_di_Vezio',name:'قلعة Vezio',price:7,img:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&q=80',must:true,desc:'قلعة عمرها ألف سنة فوق فارينا. إطلالة ٣٦٠ درجة على البحيرة بكاملها.',tip:'مشي ٢٠ دقيقة عبر بستان زيتون. الطريق سهل ويستحق كل خطوة.'},
+    {id:'v3',wk:'Bellagio_(comune)',name:'قرية بيلاجيو',price:5.5,img:'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=500&q=80',must:true,desc:'"لؤلؤة بحيرة كومو" — شوارع حجرية مزهرة ومطاعم مطلة على الماء.',tip:'العبّارة من فارينا ~٥.٥€. مطعم Ristorante Silvio للإطلالة الأجمل.'},
+    {id:'v4',wk:'Villa_Carlotta',name:'فيلا كارلوتا',price:17.5,img:'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=500&q=80',must:false,desc:'فيلا تاريخية مع ١٤ فداناً من الحدائق النباتية النادرة ومتحف نحت رائع.',tip:'احجز أونلاين من villacarlotta.it مسبقاً.'},
+    {id:'v5',wk:'Villa_Melzi_d%27Eril',name:'حدائق Villa Melzi',price:8,img:'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?w=500&q=80',must:false,desc:'حدائق نيوكلاسيكية على ضفة البحيرة في بيلاجيو. تماثيل رخامية وأشجار عمرها مئتي سنة.',tip:'الصباح الباكر للهدوء التام وأجمل الصور.'},
+    {id:'v6',wk:'Como',name:'مدينة كومو',price:0,img:'https://images.unsplash.com/photo-1547780664-fcea977e5f0e?w=500&q=80',must:false,desc:'عاصمة البحيرة — كاتدرائية القرن الرابع عشر + تلفريك Brunate للإطلالة البانورامية.',tip:'تلفريك Brunate ~١٣€ ذهاباً وإياباً.'}
    ]},
-  {id:'swiss',name:'لوتسيرن',country:'سويسرا 🇨🇭',days:3,startDay:4,color:'#b02020',colorBg:'#fdf0f0',
+  {id:'swiss',wk:'Lucerne',name:'لوتسيرن',country:'سويسرا 🇨🇭',days:3,startDay:4,color:'#b02020',colorBg:'#fdf0f0',
    desc:'لوتسيرن مدينة سويسرية ساحرة تجمع بين الطابع القروسطي والطبيعة الألبية المذهلة. على ضفاف بحيرة رائعة وعلى بعد ٤٥ دقيقة من تيتليس الثلجي.',
    imgs:['https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85','https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=900&q=85','https://images.unsplash.com/photo-1494526585095-c41746248156?w=900&q=85'],
    costs:{hotel:220,food:45,tickets:100,misc:30},
    places:[
-    {id:'s1',name:'Chapel Bridge',price:0,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80',must:true,desc:'أقدم جسر خشبي مغطى في أوروبا (١٣٣٣م). بداخله ١١٢ لوحة تاريخية ويربط المدينة القديمة ببرج الماء.',tip:'الصباح الباكر للتصوير — إضاءة ذهبية على الخشب البني.'},
-    {id:'s2',name:'جبل تيتليس ٣٢٣٨م',price:100,img:'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80',must:true,desc:'أول تلفريك دوّار في العالم. ثلج دائم + كهف جليدي + جسر معلق + إطلالة على الألب.',tip:'احجز من swissrailways.com مسبقاً. جواكت ثقيلة — الحرارة تحت الصفر!'},
-    {id:'s3',name:'نصب الأسد النائم',price:0,img:'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&q=80',must:true,desc:'منحوتة ١٨٢١م في الصخر تكريماً للحرس السويسري. وصفها مارك توين بـ"أحزن قطعة حجر في العالم".',tip:'على بعد دقائق من Chapel Bridge — لا تفوتها.'},
-    {id:'s4',name:'أسوار Museggmauer',price:0,img:'https://images.unsplash.com/photo-1574408264798-b50b252663e6?w=500&q=80',must:false,desc:'أسوار القرن الرابع عشر مع ٩ أبراج. المشي فوقها يعطي إطلالة بانورامية رائعة.',tip:'ادخلوا من برج Schirmerturm. مشي ٣٠ دقيقة.'},
-    {id:'s5',name:'بحيرة لوتسيرن',price:30,img:'https://images.unsplash.com/photo-1494526585095-c41746248156?w=500&q=80',must:false,desc:'بحيرة من أجمل بحيرات أوروبا. مياه صافية تعكس صور الجبال الثلجية.',tip:'Lucerne Travel Pass يشمل الجولة البحرية + تيتليس.'},
-    {id:'s6',name:'قرية Engelberg',price:0,img:'https://images.unsplash.com/photo-1562832135-14a35d25edef?w=500&q=80',must:false,desc:'قرية جبلية ساحرة عند قدم تيتليس. مشهورة بشوكولاتة Lindt والجبن والعسل الجبلي.',tip:'الشوكولاتة والجبن أرخص بكثير من لوتسيرن والمطار.'}
+    {id:'s1',wk:'Kapellbr%C3%BCcke',name:'Chapel Bridge',price:0,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80',must:true,desc:'أقدم جسر خشبي مغطى في أوروبا (١٣٣٣م). بداخله ١١٢ لوحة تاريخية ويربط المدينة القديمة ببرج الماء.',tip:'الصباح الباكر للتصوير — إضاءة ذهبية على الخشب البني.'},
+    {id:'s2',wk:'Titlis',name:'جبل تيتليس ٣٢٣٨م',price:100,img:'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80',must:true,desc:'أول تلفريك دوّار في العالم. ثلج دائم + كهف جليدي + جسر معلق + إطلالة على الألب.',tip:'احجز من swissrailways.com مسبقاً. جواكت ثقيلة — الحرارة تحت الصفر!'},
+    {id:'s3',wk:'Lion_Monument',name:'نصب الأسد النائم',price:0,img:'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&q=80',must:true,desc:'منحوتة ١٨٢١م في الصخر تكريماً للحرس السويسري. وصفها مارك توين بـ"أحزن قطعة حجر في العالم".',tip:'على بعد دقائق من Chapel Bridge — لا تفوتها.'},
+    {id:'s4',wk:'Musegg_Wall',name:'أسوار Museggmauer',price:0,img:'https://images.unsplash.com/photo-1574408264798-b50b252663e6?w=500&q=80',must:false,desc:'أسوار القرن الرابع عشر مع ٩ أبراج. المشي فوقها يعطي إطلالة بانورامية رائعة.',tip:'ادخلوا من برج Schirmerturm. مشي ٣٠ دقيقة.'},
+    {id:'s5',wk:'Lake_Lucerne',name:'بحيرة لوتسيرن',price:30,img:'https://images.unsplash.com/photo-1494526585095-c41746248156?w=500&q=80',must:false,desc:'بحيرة من أجمل بحيرات أوروبا. مياه صافية تعكس صور الجبال الثلجية.',tip:'Lucerne Travel Pass يشمل الجولة البحرية + تيتليس.'},
+    {id:'s6',wk:'Engelberg',name:'قرية Engelberg',price:0,img:'https://images.unsplash.com/photo-1562832135-14a35d25edef?w=500&q=80',must:false,desc:'قرية جبلية ساحرة عند قدم تيتليس. مشهورة بشوكولاتة Lindt والجبن والعسل الجبلي.',tip:'الشوكولاتة والجبن أرخص بكثير من لوتسيرن والمطار.'}
    ]},
-  {id:'milan',name:'ميلانو',country:'إيطاليا 🇮🇹',days:3,startDay:7,color:'#8a6000',colorBg:'#fdf8ed',
+  {id:'milan',wk:'Milan',name:'ميلانو',country:'إيطاليا 🇮🇹',days:3,startDay:7,color:'#8a6000',colorBg:'#fdf8ed',
    desc:'ميلانو عاصمة الموضة والتصميم العالمي وكنز تاريخي وفني. من الدومو الرائع إلى أوتلت سيرافالي — تجمع الفن والتسوق والمطبخ الإيطالي الأصيل.',
    imgs:['https://images.unsplash.com/photo-1520342868574-5fa3804e551c?w=900&q=85','https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=900&q=85','https://images.unsplash.com/photo-1574607383077-56a6d9c5a22c?w=900&q=85'],
    costs:{hotel:160,food:38,tickets:25,misc:50},
    places:[
-    {id:'m1',name:'كاتدرائية الدومو',price:22,img:'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?w=500&q=80',must:true,desc:'تحفة معمارية ٥ قرون — ٣٥٠٠ تمثال رخامي. السطح: إطلالة بانورامية لا تُنسى.',tip:'احجز تذاكر السطح أونلاين من duomomilano.it قبل ٣ أيام.'},
-    {id:'m2',name:'Galleria V. Emanuele',price:0,img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=500&q=80',must:true,desc:'أقدم مركز تجاري في إيطاليا (١٨٧٧م). قباب زجاجية مذهلة وبلاط رخامي فاخر.',tip:'دوروا ٣ مرات على الثور في البلاط — تقليد ميلاني للحظ!'},
-    {id:'m3',name:'Serravalle Outlet',price:0,img:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80',must:true,desc:'+٢٣٠ محل: Gucci, Prada, Armani, D&G, Burberry, Fendi بخصومات ٣٠–٧٠٪.',tip:'أحضروا الجوازات لاسترداد Tax Free ١٢–٢٢٪ في المطار.'},
-    {id:'m4',name:'Via Montenapoleone',price:0,img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80',must:false,desc:'أشهر شارع مودة في العالم — Versace, LV, Chanel, Hermès, Dior.',tip:'ابدأوا من Piazza San Babila. التجول والتصوير مجاني.'},
-    {id:'m5',name:'حي Brera الفني',price:0,img:'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=500&q=80',must:false,desc:'الحي البوهيمي الأجمل في ميلانو — كافيهات مميزة ومحلات فن بعيداً عن الضجيج.',tip:'متحف Pinacoteca di Brera ~١٥€. الأحد الأول: دخول مجاني.'},
-    {id:'m6',name:'حي Navigli',price:0,img:'https://images.unsplash.com/photo-1574607383077-56a6d9c5a22c?w=500&q=80',must:false,desc:'حي القنوات التاريخية — مطاعم راقية وأجواء محلية أصيلة.',tip:'جرّبوا Aperitivo المسائي — بسعر مشروب تحصلون على طاولة مليئة بالأكل!'}
+    {id:'m1',wk:'Milan_Cathedral',name:'كاتدرائية الدومو',price:22,img:'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?w=500&q=80',must:true,desc:'تحفة معمارية ٥ قرون — ٣٥٠٠ تمثال رخامي. السطح: إطلالة بانورامية لا تُنسى.',tip:'احجز تذاكر السطح أونلاين من duomomilano.it قبل ٣ أيام.'},
+    {id:'m2',wk:'Galleria_Vittorio_Emanuele_II',name:'Galleria V. Emanuele',price:0,img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=500&q=80',must:true,desc:'أقدم مركز تجاري في إيطاليا (١٨٧٧م). قباب زجاجية مذهلة وبلاط رخامي فاخر.',tip:'دوروا ٣ مرات على الثور في البلاط — تقليد ميلاني للحظ!'},
+    {id:'m3',wk:'Serravalle_Designer_Outlet',name:'Serravalle Outlet',price:0,img:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80',must:true,desc:'+٢٣٠ محل: Gucci, Prada, Armani, D&G, Burberry, Fendi بخصومات ٣٠–٧٠٪.',tip:'أحضروا الجوازات لاسترداد Tax Free ١٢–٢٢٪ في المطار.'},
+    {id:'m4',wk:'Via_Monte_Napoleone',name:'Via Montenapoleone',price:0,img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80',must:false,desc:'أشهر شارع مودة في العالم — Versace, LV, Chanel, Hermès, Dior.',tip:'ابدأوا من Piazza San Babila. التجول والتصوير مجاني.'},
+    {id:'m5',wk:'Brera_(district_of_Milan)',name:'حي Brera الفني',price:0,img:'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=500&q=80',must:false,desc:'الحي البوهيمي الأجمل في ميلانو — كافيهات مميزة ومحلات فن بعيداً عن الضجيج.',tip:'متحف Pinacoteca di Brera ~١٥€. الأحد الأول: دخول مجاني.'},
+    {id:'m6',wk:'Navigli',name:'حي Navigli',price:0,img:'https://images.unsplash.com/photo-1574607383077-56a6d9c5a22c?w=500&q=80',must:false,desc:'حي القنوات التاريخية — مطاعم راقية وأجواء محلية أصيلة.',tip:'جرّبوا Aperitivo المسائي — بسعر مشروب تحصلون على طاولة مليئة بالأكل!'}
    ]}
 ];
 function save(){ ss('tp5',S) }
@@ -674,6 +675,55 @@ function renderVbox(){
     h+='</div>';
   }
   box.innerHTML=h;
+}
+
+
+// ═══════════════════════════════════════
+// WIKIPEDIA REAL PHOTOS (REST API)
+// ═══════════════════════════════════════
+function loadWikiImg(item, cb){
+  if(!item.wk) {if(cb)cb(); return;}
+  var cached = ls('wimg_'+item.wk);
+  if(cached){
+    if(cached.length>1){ item.imgs = cached; }
+    else if(cached.length===1){ item.img = cached[0]; item.imgs = null; }
+    if(cb)cb(); return;
+  }
+  fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+item.wk)
+    .then(function(r){return r.json()})
+    .then(function(d){
+      var urls=[];
+      if(d.originalimage && d.originalimage.source) urls.push(d.originalimage.source);
+      else if(d.thumbnail && d.thumbnail.source) urls.push(d.thumbnail.source.replace(/\/\d+px-/, '/800px-'));
+      if(urls.length){
+        // Merge: wiki photo first, existing as extra slides
+        var existing = item.imgs || (item.img ? [item.img] : []);
+        var merged = urls.concat(existing.filter(function(u){return urls.indexOf(u)<0})).slice(0,3);
+        item.imgs = merged.length>1 ? merged : null;
+        if(merged.length===1) item.img = merged[0];
+        else item.img = merged[0];
+        ss('wimg_'+item.wk, merged);
+      }
+      if(cb)cb();
+    })
+    .catch(function(){if(cb)cb()});
+}
+
+function loadAllWikiImgs(done){
+  var items=[];
+  S.dests.forEach(function(d){
+    items.push(d);
+    d.places.forEach(function(p){items.push(p)});
+  });
+  var n=0, total=items.length;
+  if(!total){if(done)done();return;}
+  items.forEach(function(it){
+    loadWikiImg(it, function(){
+      n++;
+      if(n===total && done) done();
+    });
+  });
+  setTimeout(function(){if(done)done()}, 6000);
 }
 
 // ═══════════════════════════════════════
@@ -779,6 +829,7 @@ function showPg(id,btn){
 // ═══════════════════════════════════════
 function renderDash(){
   buildHero();
+  renderEssentials();
   var ap=S.dests.reduce(function(a,d){return a.concat(d.places)},[]);
   var tv=ap.reduce(function(s,p){return s+(S.votes[p.id]||0)},0);
   var td=ap.reduce(function(s,p){return s+(S.dislikes[p.id]||0)},0);
@@ -881,13 +932,27 @@ function renderActs(){
           '</div>'+
         '</div></div>';
     }).join('');
+    var halalH='';
+    var hl=HALAL[dest.id];
+    if(hl){
+      halalH='<div style="background:#f0f9f0;border:1px solid #c0e0c0;border-radius:12px;padding:11px 14px;margin-top:10px">';
+      halalH+='<div style="font-size:11px;font-weight:800;color:#1e7e44;margin-bottom:8px">🍽️ مطاعم حلال موصى بها في '+dest.name+'</div>';
+      halalH+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px">';
+      hl.forEach(function(r){
+        halalH+='<div style="background:#fff;border-radius:9px;padding:8px 11px;display:flex;justify-content:space-between;align-items:center">';
+        halalH+='<div><div style="font-size:11px;font-weight:700;color:#1a1614">'+r.n+'</div>';
+        halalH+='<div style="font-size:9.5px;color:#9e9890">'+r.t+' · '+r.a+'</div></div>';
+        halalH+='<div style="font-size:9.5px;color:#1e7e44;font-weight:700">'+r.r+'</div></div>';
+      });
+      halalH+='</div></div>';
+    }
     return '<div class="dblock">'+
       '<div class="dbhdr" style="background:'+dest.colorBg+'">'+
         '<div style="width:10px;height:10px;border-radius:50%;background:'+dest.color+'"></div>'+
         '<div class="dbhn" style="color:'+dest.color+'">'+dest.name+'</div>'+
         '<div class="dbhd" style="color:'+dest.color+'">'+dest.days+' أيام · '+dest.country+'</div>'+
       '</div>'+
-      '<div class="pgrid">'+ph+'</div></div>';
+      '<div class="pgrid">'+ph+'</div>'+halalH+'</div>';
   }).join('');
 }
 
@@ -1211,6 +1276,78 @@ function renderWx(){
 }
 
 
+
+// ═══════════════════════════════════════
+// TRAVEL ESSENTIALS (خبير سياحي)
+// ═══════════════════════════════════════
+function renderEssentials(){
+  var box=document.getElementById('essentials-box');
+  if(!box) return;
+  var h='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;margin-bottom:12px">🧭 معلومات أساسية للمسافر</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';
+  [
+    {i:'💶',t:'إيطاليا',v:'اليورو EUR',s:'1€ ≈ 4.06 ريال'},
+    {i:'💵',t:'سويسرا',v:'الفرنك CHF',s:'1CHF ≈ 4.30 ريال ⚠️'},
+    {i:'🕐',t:'فرق التوقيت',v:'-2 ساعات',s:'عن السعودية'},
+    {i:'🆘',t:'الطوارئ',v:'112',s:'موحد لأوروبا'},
+    {i:'📱',t:'شريحة اتصال',v:'Airalo eSIM',s:'~15€ لأوروبا كاملة'},
+    {i:'🕌',t:'مساجد',v:'متوفرة',s:'في ميلانو ولوغانو'},
+    {i:'🍽️',t:'أكل حلال',v:'منتشر',s:'مطاعم تركية وعربية'},
+    {i:'🔌',t:'الكهرباء',v:'Type C/F',s:'محول أوروبي مطلوب'},
+  ].forEach(function(e){
+    h+='<div style="background:#f9f8f6;border-radius:10px;padding:10px 12px">';
+    h+='<div style="font-size:18px">'+e.i+'</div>';
+    h+='<div style="font-size:10px;color:#9e9890;margin-top:3px">'+e.t+'</div>';
+    h+='<div style="font-size:12px;font-weight:800;color:#1a1614">'+e.v+'</div>';
+    h+='<div style="font-size:9.5px;color:#9e9890;margin-top:1px">'+e.s+'</div></div>';
+  });
+  h+='</div>';
+  // Transport route
+  h+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid #f0ece6">';
+  h+='<div style="font-size:11px;font-weight:800;margin-bottom:8px">🚐 مسار التنقل بالفان</div>';
+  h+='<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:10.5px">';
+  var route=[
+    {n:'مطار ميلانو مالبينسا',c:'#8a6000'},
+    {t:'١ ساعة'},
+    {n:'بحيرة كومو',c:'#1a6b9a'},
+    {t:'٢.٥ ساعة عبر نفق غوتهارد'},
+    {n:'لوتسيرن',c:'#b02020'},
+    {t:'٣ ساعات'},
+    {n:'ميلانو',c:'#8a6000'},
+    {t:'٥٠ دقيقة'},
+    {n:'المطار ✈️',c:'#555'}
+  ];
+  route.forEach(function(r){
+    if(r.n) h+='<span style="background:'+r.c+'15;color:'+r.c+';border:1px solid '+r.c+'33;border-radius:20px;padding:4px 11px;font-weight:700">'+r.n+'</span>';
+    else h+='<span style="color:#9e9890">— '+r.t+' →</span>';
+  });
+  h+='</div></div>';
+  h+='</div>';
+  box.innerHTML=h;
+}
+
+// ═══════════════════════════════════════
+// HALAL RESTAURANTS
+// ═══════════════════════════════════════
+var HALAL = {
+  como: [
+    {n:'Istanbul Kebab Como',t:'تركي حلال',a:'وسط مدينة كومو',r:'⭐ 4.3'},
+    {n:'Ristorante Nilo',t:'مصري / شرقي',a:'Como centro',r:'⭐ 4.2'},
+    {n:'مطاعم السمك على البحيرة',t:'مأكولات بحرية',a:'فارينا وبيلاجيو',r:'⭐ 4.5'}
+  ],
+  swiss: [
+    {n:'Kebab Haus Luzern',t:'تركي حلال',a:'قرب المحطة',r:'⭐ 4.4'},
+    {n:'New Punjab',t:'هندي حلال',a:'وسط لوتسيرن',r:'⭐ 4.3'},
+    {n:'Holy Cow! (خيارات)',t:'برجر — اطلب حلال',a:'فروع متعددة',r:'⭐ 4.2'}
+  ],
+  milan: [
+    {n:'Ristorante Salam',t:'عربي حلال',a:'قرب المحطة المركزية',r:'⭐ 4.5'},
+    {n:'Mariam Milano',t:'لبناني فاخر',a:'وسط ميلانو',r:'⭐ 4.6'},
+    {n:'Zaytun',t:'شرق أوسطي',a:'Porta Venezia',r:'⭐ 4.4'}
+  ]
+};
+
 // ═══════════════════════════════════════
 // VISA INFO (Updated 2026)
 // ═══════════════════════════════════════
@@ -1389,10 +1526,21 @@ function renderVisa(){
 // ═══════════════════════════════════════
 if(S.user) document.getElementById('ubtn').textContent='👤 '+S.user;
 renderDash();
-// Load visitors
+// Load real Wikipedia photos then refresh views
+var _wkDone=false;
+loadAllWikiImgs(function(){
+  if(_wkDone) return; _wkDone=true;
+  Object.keys(cTimers).forEach(function(k){clearInterval(cTimers[k]);delete cTimers[k]});
+  Object.keys(pTimers).forEach(function(k){clearInterval(pTimers[k]);delete pTimers[k]});
+  renderDash();
+  if(document.getElementById('pg-acts').classList.contains('on')){
+    renderActs(); setTimeout(startPlaceSlideshows,400);
+  }
+  save();
+});
+// Load visitors - record every visit even anonymous
 loadVD(function(){
   renderVbox();
-  // Record visit immediately - named or anonymous
   setTimeout(saveVD,800);
 });
 </script>
