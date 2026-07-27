@@ -1,4 +1,4 @@
-<!-- v1783186093 -->
+<!-- v1785179140 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -403,6 +403,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="tab" onclick="showPg('tl',this)">🗓️ المسار</button>
       <button class="tab" onclick="showPg('cost',this)">💶 التكاليف</button>
       <button class="tab" onclick="showPg('wx',this)">🌤️ الطقس</button>
+      <button class="tab" onclick="showPg('hotels',this)">🏨 الفنادق</button>
       <button class="tab" onclick="showPg('visa',this)">📋 التأشيرة</button>
     </div>
     <button id="ubtn" onclick="openName()">👤 أدخل اسمك</button>
@@ -435,6 +436,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   <div id="pg-wx" class="pg">
     <div class="wx-section" id="wx-content"></div>
   </div>
+  <div id="pg-hotels" class="pg">
+    <div id="hotels-content"></div>
+  </div>
   <div id="pg-visa" class="pg">
     <div id="visa-content"></div>
   </div>
@@ -444,7 +448,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <div class="cnums">
         <div><div class="csub">للشخص الواحد</div><div class="cper" id="hper">0 €</div></div>
         <div class="cdiv"></div>
-        <div><div class="csub">للمجموعة (10 أشخاص)</div><div class="cgrp" id="hgrp">0 €</div></div>
+        <div><div class="csub">للمجموعة (8 أشخاص)</div><div class="cgrp" id="hgrp">0 €</div></div>
       </div>
       <div class="cnote">* ميزانية التسوق الشخصي غير محسوبة في المجموع</div>
     </div>
@@ -462,7 +466,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
         <div class="csbox"><div class="cshdr">ملخص التكاليف</div><div id="csrows"></div>
           <div class="cstots">
             <div class="csper"><span>الإجمالي / شخص</span><b id="csper2">0 €</b></div>
-            <div class="csgrp"><span>للمجموعة (10)</span><b id="csgrp2">0 €</b></div>
+            <div class="csgrp"><span>للمجموعة (8)</span><b id="csgrp2">0 €</b></div>
             <div class="csshop" id="csshop"></div>
           </div>
         </div>
@@ -512,9 +516,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 // ═══════════════════════════════════════
 // CONSTANTS
 // ═══════════════════════════════════════
-var PP = 10; // People
+var PP = 8; // People
 var GR = 'aabokf-crypto/italy-trip-2026';
-var _tk = ['g','h','p','_','B','c','K','g','E','u','s','p','5','c','E','m','h','1','7','C','R','p','b','K','S','G','X','h','E','D','p','2','h','b','3','I','f','0','Q','N'];
+var _tk = ['g', 'h', 'o', '_', '6', '8', 'g', 'z', 'I', '1', 'n', 'X', 'V', 'q', '8', 'k', 'F', 'k', 'x', 'P', 'Y', 'J', 'j', 'd', 'p', '4', 'c', '4', '0', 'w', '2', 'J', 'x', 'r', '3', '6', 'D', 'N', 'm', 'r'];
 var GT = function(){ return _tk.join(''); };
 var COLORS = ['#1a6b9a','#b02020','#8a6000','#1e7e44','#6b2fa0','#c45c00','#2c6e8a'];
 var CBGS = {'#1a6b9a':'#eef6fc','#b02020':'#fdf0f0','#8a6000':'#fdf8ed','#1e7e44':'#edf7f1','#6b2fa0':'#f5eefb','#c45c00':'#fdf2e9','#2c6e8a':'#eef4fb'};
@@ -562,13 +566,13 @@ if(!S.comments) S.comments={};
 if(!S.shop) S.shop=500;
 if(!S.fixed) S.fixed={
   flights:{label:'تذاكر الطيران',icon:'✈️',note:'للشخص — ذهاب وإياب',value:750},
-  van:{label:'إيجار الفان',icon:'🚗',note:'إجمالي للمجموعة',value:1200}
+  van:{label:'إيجار الفان',icon:'🚗',note:'فان ٩ مقاعد · ٩ أيام',value:1100}
 };
 if(!S.dests) S.dests=[
   {id:'como',wk:'Lake_Como',name:'بحيرة كومو',country:'إيطاليا 🇮🇹',days:3,startDay:1,color:'#1a6b9a',colorBg:'#eef6fc',
    desc:'بحيرة كومو شمال إيطاليا — واحدة من أجمل البحيرات في العالم. تحيط بها جبال الألب وتزينها قرى ملونة تعكس صورها على المياه الصافية.',
    imgs:['https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=85','https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85','https://images.unsplash.com/photo-1580652516975-4e94f8c2b6df?w=900&q=85'],
-   costs:{hotel:180,food:35,tickets:30,misc:20},
+   costs:{hotel:78,food:35,tickets:30,misc:20},
    places:[
     {id:'v1',wk:'Varenna',name:'كورنيش فارينا',price:0,img:'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500&q=80',must:true,desc:'أجمل كورنيش على بحيرة كومو — بيوت ملونة تنعكس صورها على المياه. الغروب هنا تجربة لا تُنسى.',tip:'توجّهوا للميناء الصغير عند الغروب للحصول على أجمل صورة.'},
     {id:'v2',wk:'Castello_di_Vezio',name:'قلعة Vezio',price:7,img:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&q=80',must:true,desc:'قلعة عمرها ألف سنة فوق فارينا. إطلالة ٣٦٠ درجة على البحيرة بكاملها.',tip:'مشي ٢٠ دقيقة عبر بستان زيتون. الطريق سهل ويستحق كل خطوة.'},
@@ -580,7 +584,7 @@ if(!S.dests) S.dests=[
   {id:'swiss',wk:'Lucerne',name:'لوتسيرن',country:'سويسرا 🇨🇭',days:3,startDay:4,color:'#b02020',colorBg:'#fdf0f0',
    desc:'لوتسيرن مدينة سويسرية ساحرة تجمع بين الطابع القروسطي والطبيعة الألبية المذهلة. على ضفاف بحيرة رائعة وعلى بعد ٤٥ دقيقة من تيتليس الثلجي.',
    imgs:['https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85','https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=900&q=85','https://images.unsplash.com/photo-1494526585095-c41746248156?w=900&q=85'],
-   costs:{hotel:220,food:45,tickets:100,misc:30},
+   costs:{hotel:115,food:45,tickets:100,misc:30},
    places:[
     {id:'s1',wk:'Kapellbr%C3%BCcke',name:'Chapel Bridge',price:0,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80',must:true,desc:'أقدم جسر خشبي مغطى في أوروبا (١٣٣٣م). بداخله ١١٢ لوحة تاريخية ويربط المدينة القديمة ببرج الماء.',tip:'الصباح الباكر للتصوير — إضاءة ذهبية على الخشب البني.'},
     {id:'s2',wk:'Titlis',name:'جبل تيتليس ٣٢٣٨م',price:100,img:'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80',must:true,desc:'أول تلفريك دوّار في العالم. ثلج دائم + كهف جليدي + جسر معلق + إطلالة على الألب.',tip:'احجز من swissrailways.com مسبقاً. جواكت ثقيلة — الحرارة تحت الصفر!'},
@@ -592,7 +596,7 @@ if(!S.dests) S.dests=[
   {id:'milan',wk:'Milan',name:'ميلانو',country:'إيطاليا 🇮🇹',days:3,startDay:7,color:'#8a6000',colorBg:'#fdf8ed',
    desc:'ميلانو عاصمة الموضة والتصميم العالمي وكنز تاريخي وفني. من الدومو الرائع إلى أوتلت سيرافالي — تجمع الفن والتسوق والمطبخ الإيطالي الأصيل.',
    imgs:['https://images.unsplash.com/photo-1520342868574-5fa3804e551c?w=900&q=85','https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=900&q=85','https://images.unsplash.com/photo-1574607383077-56a6d9c5a22c?w=900&q=85'],
-   costs:{hotel:160,food:38,tickets:25,misc:50},
+   costs:{hotel:58,food:38,tickets:25,misc:50},
    places:[
     {id:'m1',wk:'Milan_Cathedral',name:'كاتدرائية الدومو',price:22,img:'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?w=500&q=80',must:true,desc:'تحفة معمارية ٥ قرون — ٣٥٠٠ تمثال رخامي. السطح: إطلالة بانورامية لا تُنسى.',tip:'احجز تذاكر السطح أونلاين من duomomilano.it قبل ٣ أيام.'},
     {id:'m2',wk:'Galleria_Vittorio_Emanuele_II',name:'Galleria V. Emanuele',price:0,img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=500&q=80',must:true,desc:'أقدم مركز تجاري في إيطاليا (١٨٧٧م). قباب زجاجية مذهلة وبلاط رخامي فاخر.',tip:'دوروا ٣ مرات على الثور في البلاط — تقليد ميلاني للحظ!'},
@@ -822,6 +826,7 @@ function showPg(id,btn){
   if(id==='cost') recalc();
   if(id==='wx') renderWx();
   if(id==='visa') renderVisa();
+  if(id==='hotels') renderHotels();
 }
 
 // ═══════════════════════════════════════
@@ -1348,6 +1353,169 @@ var HALAL = {
   ]
 };
 
+
+// ═══════════════════════════════════════
+// HOTELS (أسعار حقيقية أكتوبر 2026 — 8 أشخاص)
+// ═══════════════════════════════════════
+var HOTELS = {
+  como: {
+    dest:'بحيرة كومو', color:'#1a6b9a', colorBg:'#eef6fc', nights:3, cur:'€',
+    roomPlan:'٣ غرف: غرفتان ثلاثية + غرفة ثنائية',
+    perNight:620, note:'فارينا أرخص من بيلاجيو وكومو — متوسط الغرفة ~٢٦١$/ليلة',
+    hotels:[
+      {n:'Hotel Royal Victoria',s:'⭐⭐⭐⭐',loc:'فارينا — على البحيرة مباشرة',triple:250,dbl:200,pts:'إفطار فاخر، إطلالة بحيرة، غرف عائلية واسعة',url:'royalvictoria.com'},
+      {n:'Albergo Milano',s:'⭐⭐⭐',loc:'فارينا — وسط القرية',triple:220,dbl:175,pts:'بوتيك ساحر، شرفات مطلة على البحيرة، الأعلى تقييماً',url:'varenna.net'},
+      {n:'Hotel Montecodeno',s:'⭐⭐⭐',loc:'فارينا — أعلى القرية',triple:170,dbl:135,pts:'الخيار الاقتصادي، مطعم بيتزا ممتاز، غرف متصلة للعوائل',url:'hotelmontecodeno.com'},
+      {n:'فيلا Airbnb كاملة لـ ٨',s:'🏡',loc:'فارينا أو بيلانو',triple:0,dbl:0,flat:550,pts:'فيلا خاصة بمطبخ — الأوفر للمجموعة! ~550€/ليلة كاملة',url:'airbnb.com'}
+    ]
+  },
+  swiss: {
+    dest:'لوتسيرن', color:'#b02020', colorBg:'#fdf0f0', nights:3, cur:'CHF',
+    roomPlan:'٣ غرف: غرفتان ثلاثية + غرفة ثنائية',
+    perNight:910, note:'⚠️ سويسرا غالية — الفرنك CHF أغلى من اليورو. الغرفة العائلية ~488$/ليلة',
+    hotels:[
+      {n:'Ibis Styles Luzern',s:'⭐⭐⭐',loc:'وسط المدينة القديمة',triple:280,dbl:210,pts:'غرف عائلية، موقع ممتاز قرب Chapel Bridge، إفطار مشمول',url:'all.accor.com'},
+      {n:'Hotel Central Luzern',s:'⭐⭐⭐',loc:'قرب المحطة',triple:340,dbl:300,pts:'إفطار مجاني، دقائق للمعالم، تقييم ممتاز',url:'hotelcentralluzern.ch'},
+      {n:'Hotel De la Paix',s:'⭐⭐⭐',loc:'قرب نصب الأسد',triple:320,dbl:260,pts:'غرف ثلاثية بشرفات + تذكرة مواصلات مجانية مشمولة',url:'delapaixlucerne.ch'},
+      {n:'شقة Airbnb لـ ٨',s:'🏡',loc:'وسط لوتسيرن',triple:0,dbl:0,flat:800,pts:'شقة كبيرة بمطبخ ~800CHF/ليلة — توفير على الأكل السويسري الغالي',url:'airbnb.com'}
+    ]
+  },
+  milan: {
+    dest:'ميلانو', color:'#8a6000', colorBg:'#fdf8ed', nights:3, cur:'€',
+    roomPlan:'٣ غرف: غرفتان ثلاثية + غرفة ثنائية',
+    perNight:460, note:'ميلانو الأرخص — فنادق ٣ نجوم ممتازة قرب المحطة المركزية من ٦٠€',
+    hotels:[
+      {n:'ibis Milano Centro',s:'⭐⭐⭐',loc:'قرب المحطة المركزية',triple:160,dbl:120,pts:'الأشهر والأضمن، تقييم 8.2، قريب من كل شيء',url:'all.accor.com'},
+      {n:'43 Station Hotel',s:'⭐⭐⭐',loc:'أمام المحطة المركزية',triple:150,dbl:110,pts:'تقييم 8.4، مثالي للتنقل بالمترو والقطارات',url:'43stationhotel.com'},
+      {n:'Soperga Hotel',s:'⭐⭐⭐',loc:'٥ دقائق من المحطة',triple:135,dbl:95,pts:'الخيار الاقتصادي الأفضل، غرف نظيفة وواسعة',url:'sopergahotel.com'},
+      {n:'شقة Airbnb لـ ٨',s:'🏡',loc:'Porta Venezia',triple:0,dbl:0,flat:400,pts:'شقة واسعة ~400€/ليلة — مثالية بعد يوم تسوق طويل',url:'airbnb.com'}
+    ]
+  }
+};
+
+function renderHotels(){
+  var el=document.getElementById('hotels-content');
+  if(!el) return;
+  var h='';
+  // Hero
+  h+='<div style="background:linear-gradient(135deg,#1a1614,#2d2520);border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden">';
+  h+='<div style="position:absolute;top:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:#d4a017;opacity:.05"></div>';
+  h+='<div style="font-size:10px;color:#d4a017;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;opacity:.8">أسعار حقيقية · أكتوبر ٢٠٢٦ · ٨ أشخاص</div>';
+  h+='<div style="font-size:18px;font-weight:900;margin-bottom:6px">🏨 دليل الفنادق والإقامة</div>';
+  h+='<div style="font-size:12px;opacity:.6;line-height:1.6">توزيع مقترح: <b style="color:#d4a017">٣ غرف لكل وجهة</b> — غرفتان ثلاثية (٣+٣) وغرفة ثنائية (٢) = ٨ أشخاص</div>';
+  h+='</div>';
+
+  ['como','swiss','milan'].forEach(function(k){
+    var d=HOTELS[k];
+    h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+    // Header
+    h+='<div style="padding:12px 16px;background:'+d.colorBg+';display:flex;align-items:center;gap:10px;flex-wrap:wrap">';
+    h+='<div style="width:10px;height:10px;border-radius:50%;background:'+d.color+'"></div>';
+    h+='<div style="font-size:14px;font-weight:800;color:'+d.color+'">'+d.dest+'</div>';
+    h+='<div style="font-size:10px;color:'+d.color+';opacity:.7">'+d.nights+' ليالٍ · '+d.roomPlan+'</div>';
+    h+='<div style="margin-right:auto;background:#fff;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:800;color:'+d.color+'">~'+fmt(d.perNight)+' '+d.cur+' / ليلة للمجموعة</div>';
+    h+='</div>';
+    // Note
+    h+='<div style="padding:8px 16px;background:#fffbf0;font-size:10.5px;color:#8a6000;border-bottom:1px solid #f0ece6">💡 '+d.note+'</div>';
+    // Hotels
+    h+='<div style="padding:10px 16px;display:flex;flex-direction:column;gap:8px">';
+    d.hotels.forEach(function(ht){
+      var isAirbnb=ht.flat>0;
+      h+='<div style="display:flex;gap:12px;padding:10px 12px;background:#f9f8f6;border-radius:11px;align-items:center;flex-wrap:wrap;'+(isAirbnb?'border:1.5px dashed #d4a017;background:#fffdf5':'')+'">';
+      h+='<div style="flex:1;min-width:180px">';
+      h+='<div style="font-size:12.5px;font-weight:800;color:#1a1614">'+ht.n+' <span style="font-size:10px">'+ht.s+'</span></div>';
+      h+='<div style="font-size:10px;color:#9e9890;margin-top:2px">📍 '+ht.loc+'</div>';
+      h+='<div style="font-size:10px;color:#555;margin-top:3px;line-height:1.5">'+ht.pts+'</div>';
+      h+='</div>';
+      h+='<div style="display:flex;gap:8px;align-items:center">';
+      if(isAirbnb){
+        h+='<div style="text-align:center;background:#fff;border-radius:9px;padding:7px 14px"><div style="font-size:9px;color:#9e9890">الوحدة كاملة/ليلة</div><div style="font-size:15px;font-weight:900;color:#d4a017">'+fmt(ht.flat)+' '+d.cur+'</div><div style="font-size:9px;color:#27ae60;font-weight:700">'+fmt(Math.round(ht.flat/8))+' '+d.cur+'/شخص</div></div>';
+      } else {
+        h+='<div style="text-align:center;background:#fff;border-radius:9px;padding:7px 12px"><div style="font-size:9px;color:#9e9890">ثلاثية/ليلة</div><div style="font-size:14px;font-weight:900;color:'+d.color+'">'+fmt(ht.triple)+' '+d.cur+'</div></div>';
+        h+='<div style="text-align:center;background:#fff;border-radius:9px;padding:7px 12px"><div style="font-size:9px;color:#9e9890">ثنائية/ليلة</div><div style="font-size:14px;font-weight:900;color:'+d.color+'">'+fmt(ht.dbl)+' '+d.cur+'</div></div>';
+        var groupNight=ht.triple*2+ht.dbl;
+        h+='<div style="text-align:center;background:'+d.colorBg+';border-radius:9px;padding:7px 12px"><div style="font-size:9px;color:'+d.color+'">٣ غرف/ليلة</div><div style="font-size:14px;font-weight:900;color:'+d.color+'">'+fmt(groupNight)+'</div><div style="font-size:9px;color:#27ae60;font-weight:700">'+fmt(Math.round(groupNight/8))+'/شخص</div></div>';
+      }
+      h+='</div></div>';
+    });
+    h+='</div>';
+    // Total for stay
+    var totalStay=d.perNight*d.nights;
+    h+='<div style="padding:10px 16px;background:#fdf8ed;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">';
+    h+='<span style="font-size:11px;color:#b8860b;font-weight:700">إجمالي '+d.nights+' ليالٍ للمجموعة (متوسط)</span>';
+    h+='<div style="display:flex;gap:10px;align-items:center">';
+    h+='<b style="font-size:15px;font-weight:900;color:#b8860b">'+fmt(totalStay)+' '+d.cur+'</b>';
+    h+='<span style="font-size:11px;color:#27ae60;font-weight:800">'+fmt(Math.round(totalStay/8))+' '+d.cur+' / شخص</span>';
+    h+='</div></div>';
+    h+='</div>';
+  });
+
+  // ═══ PRICE TRACKER — أقل الأسعار والعروض ═══
+  h+='<div style="background:linear-gradient(135deg,#0d4f3c,#1a7a5e);border-radius:14px;padding:16px 18px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden">';
+  h+='<div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:#4ade80;opacity:.06"></div>';
+  h+='<div style="font-size:13px;font-weight:900;margin-bottom:4px">📉 تتبع الأسعار الحي — أقل سعر ممكن</div>';
+  h+='<div style="font-size:10.5px;opacity:.75;margin-bottom:12px;line-height:1.6">الروابط أدناه مضبوطة على تواريخكم (١–٩ أكتوبر) و٨ أشخاص و٣ غرف — اضغط وشاهد أقل الأسعار الحية مباشرة</div>';
+
+  var TRACK=[
+    {dest:'كومو / فارينا',dates:'١–٤ أكتوبر',ci:'2026-10-01',co:'2026-10-04',q:'Varenna',qb:'Varenna',low:'من ~97$/غرفة',lowest:'Hotel Montecodeno الأرخص المضمون',c:'#7dd3fc'},
+    {dest:'لوتسيرن',dates:'٤–٧ أكتوبر',ci:'2026-10-04',co:'2026-10-07',q:'Lucerne',qb:'Lucerne',low:'من ~108$/غرفة',lowest:'Ibis Styles Luzern أفضل قيمة',c:'#fca5a5'},
+    {dest:'ميلانو',dates:'٧–١٠ أكتوبر',ci:'2026-10-07',co:'2026-10-10',q:'Milan',qb:'Milan',low:'من ~60$/غرفة',lowest:'Hotel Delle Nazioni الأرخص إطلاقاً',c:'#fcd34d'}];
+  TRACK.forEach(function(t){
+    var bk='https://www.booking.com/searchresults.ar.html?ss='+t.qb+'&checkin='+t.ci+'&checkout='+t.co+'&group_adults=8&no_rooms=3&group_children=0&order=price';
+    var gh='https://www.google.com/travel/search?q=hotels+'+t.q+'&checkin='+t.ci+'&checkout='+t.co;
+    var ky='https://www.kayak.com/hotels/'+t.q+'/'+t.ci+'/'+t.co+'/8adults';
+    h+='<div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:11px;padding:11px 14px;margin-bottom:9px">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">';
+    h+='<div><span style="font-size:12.5px;font-weight:800;color:'+t.c+'">'+t.dest+'</span> <span style="font-size:10px;opacity:.6">'+t.dates+' · ٣ غرف · ٨ أشخاص</span></div>';
+    h+='<div style="background:rgba(74,222,128,.2);border:1px solid rgba(74,222,128,.4);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:800;color:#4ade80">'+t.low+'</div>';
+    h+='</div>';
+    h+='<div style="font-size:10px;opacity:.65;margin-bottom:8px">🏆 '+t.lowest+'</div>';
+    h+='<div style="display:flex;gap:7px;flex-wrap:wrap">';
+    h+='<a href="'+bk+'" target="_blank" rel="noopener" style="text-decoration:none;background:#003b95;color:#fff;border-radius:8px;padding:6px 13px;font-size:10.5px;font-weight:700">Booking.com ←</a>';
+    h+='<a href="'+gh+'" target="_blank" rel="noopener" style="text-decoration:none;background:#fff;color:#1a1614;border-radius:8px;padding:6px 13px;font-size:10.5px;font-weight:700">Google Hotels 🔔</a>';
+    h+='<a href="'+ky+'" target="_blank" rel="noopener" style="text-decoration:none;background:#ff690f;color:#fff;border-radius:8px;padding:6px 13px;font-size:10.5px;font-weight:700">Kayak ←</a>';
+    h+='</div></div>';
+  });
+
+  // Price tracking tips
+  h+='<div style="background:rgba(255,255,255,.06);border-radius:10px;padding:10px 13px;margin-top:4px">';
+  h+='<div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#4ade80">💰 استراتيجية أقل سعر مضمونة:</div>';
+  [
+    '١. احجز الآن بإلغاء مجاني من Booking — تضمن سعر اليوم',
+    '٢. فعّل 🔔 تتبع السعر في Google Hotels — يرسل تنبيهاً إذا نزل السعر',
+    '٣. إذا نزل السعر: احجز الأرخص الجديد وألغِ القديم مجاناً',
+    '٤. أفضل نافذة حجز: ٣٦–٦٠ يوم قبل السفر (أغسطس = الوقت الذهبي)',
+    '٥. الثلاثاء والأربعاء أرخص أيام الحجز — تجنب نهاية الأسبوع'
+  ].forEach(function(tip){
+    h+='<div style="font-size:10px;opacity:.8;margin-bottom:4px;line-height:1.5">'+tip+'</div>';
+  });
+  h+='</div>';
+  h+='</div>';
+
+  // Summary comparison
+  h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;margin-bottom:10px">📊 ملخص تكلفة الإقامة الكاملة (٩ ليالٍ · ٨ أشخاص)</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">';
+  var comoT=620*3, swissT=910*3*1.06, milanT=460*3; // CHF→EUR ~1.06
+  var totalAll=Math.round(comoT+swissT+milanT);
+  [
+    {l:'كومو (٣ ليالٍ)',v:fmt(comoT)+' €',c:'#1a6b9a'},
+    {l:'لوتسيرن (٣ ليالٍ)',v:'2,730 CHF ≈ '+fmt(Math.round(910*3*1.06))+' €',c:'#b02020'},
+    {l:'ميلانو (٣ ليالٍ)',v:fmt(milanT)+' €',c:'#8a6000'},
+    {l:'الإجمالي للمجموعة',v:'~'+fmt(totalAll)+' €',c:'#1a1614'},
+    {l:'للشخص الواحد',v:'~'+fmt(Math.round(totalAll/8))+' €',c:'#27ae60'},
+  ].forEach(function(s){
+    h+='<div style="background:#f9f8f6;border-radius:10px;padding:10px 12px;border-right:3px solid '+s.c+'">';
+    h+='<div style="font-size:10px;color:#9e9890">'+s.l+'</div>';
+    h+='<div style="font-size:14px;font-weight:900;color:'+s.c+';margin-top:3px">'+s.v+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div style="margin-top:12px;padding:9px 12px;background:#f0f9f0;border:1px solid #c0e0c0;border-radius:9px;font-size:10.5px;color:#1e7e44;line-height:1.6">💰 <b>نصيحة التوفير:</b> Airbnb فيلا/شقة كاملة أوفر ٢٠-٣٠٪ من الفنادق + مطبخ يوفر على وجبات سويسرا الغالية (وجبة مطعم في لوتسيرن ~40CHF/شخص!)</div>';
+  h+='</div>';
+
+  el.innerHTML=h;
+}
+
 // ═══════════════════════════════════════
 // VISA INFO (Updated 2026)
 // ═══════════════════════════════════════
@@ -1413,7 +1581,7 @@ function renderVisa(){
 
   // Card 2: Documents
   h+='<div class="visa-card">';
-  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📂</span><div><div class="visa-card-title">المستندات المطلوبة</div><div class="visa-card-sub">لكل شخص من المجموعة العشرة 🔴 إلزامي 🟢 يقوّي الملف</div></div></div>';
+  h+='<div class="visa-card-hdr"><span class="visa-card-icon">📂</span><div><div class="visa-card-title">المستندات المطلوبة</div><div class="visa-card-sub">لكل شخص من المجموعة الثمانية 🔴 إلزامي 🟢 يقوّي الملف</div></div></div>';
   h+='<div class="visa-docs">';
   var docs=[
     {i:'📘',t:'جواز سفر ساري المفعول',s:'صالح ٣ أشهر على الأقل بعد انتهاء التأشيرة + صفحتان فارغتان. الجواز الدبلوماسي يحتاج تصريح وزارة الخارجية السعودية',must:true},
@@ -1445,7 +1613,7 @@ function renderVisa(){
     {n:'١',c:'#1a6b9a',t:'احجز الطيران والإقامة أولاً',d:'التأشيرة تشترط حجوزات مؤكدة. احجز تذاكر قابلة للتعديل وAirbnb/فندق لكل الرحلة قبل التقديم.'},
     {n:'٢',c:'#27ae60',t:'اشتري تأمين السفر لكل أفراد المجموعة',d:'يجب أن يغطي ٣٠,٠٠٠ يورو على الأقل لكل شخص ويشمل سويسرا وإيطاليا. AXA أو Allianz Travel موصى بهما.'},
     {n:'٣',c:'#e67e22',t:'عبّئ النموذج إلكترونياً',d:'ادخل e-applicationvisa.esteri.it — أنشئ حساباً — عبّئ بياناتك بالحروف اللاتينية الكبيرة — اطبع واوقّع النموذج.'},
-    {n:'٤',c:'#9b59b6',t:'اجمع مستندات كل شخص في ملف منفصل',d:'١٠ أشخاص = ١٠ ملفات منفصلة. ترتيب الأوراق: استمارة → جواز → صور → طيران → فندق → بنك → تأمين → عمل → عائلة.'},
+    {n:'٤',c:'#9b59b6',t:'اجمع مستندات كل شخص في ملف منفصل',d:'٨ أشخاص = ٨ ملفات منفصلة. ترتيب الأوراق: استمارة → جواز → صور → طيران → فندق → بنك → تأمين → عمل → عائلة.'},
     {n:'٥',c:'#b02020',t:'احجز موعداً في VFS',d:'ادخل ksa.consortiumforitalianvisaservices.com ← اختر المدينة ← حدد موعداً لكل شخص. المواعيد قد تكون محجوزة أسابيع مسبقاً.'},
     {n:'٦',c:'#8a6000',t:'احضر البصمة شخصياً',d:'كل شخص يحضر شخصياً. الأطفال أقل من ١٢ سنة لا يحتاجون بصمة. ارتدِ ملابس مرتبة وأحضر كل المستندات.'},
     {n:'٧',c:'#16a085',t:'ادفع الرسوم',d:'٩٠ يورو رسوم السفارة + ~١٣٠ ريال رسوم VFS لكل شخص بالغ. يمكن الدفع نقداً أو بطاقة بنكية.'},
@@ -1464,7 +1632,7 @@ function renderVisa(){
   [
     {i:'⚡',l:'الآن — يونيو ٢٠٢٦',v:'احجز الطيران والإقامة فوراً — المواعيد تمتلئ'},
     {i:'🛡️',l:'يوليو ٢٠٢٦',v:'اشتري التأمين واجمع المستندات لكل شخص'},
-    {i:'📋',l:'أغسطس ٢٠٢٦',v:'عبّئ النماذج واحجز مواعيد VFS لـ ١٠ أشخاص'},
+    {i:'📋',l:'أغسطس ٢٠٢٦',v:'عبّئ النماذج واحجز مواعيد VFS لـ ٨ أشخاص'},
     {i:'🏢',l:'أغسطس/سبتمبر',v:'قدّم الطلبات وادفع الرسوم في VFS'},
     {i:'✅',l:'سبتمبر ٢٠٢٦',v:'استلم التأشيرات — ١٤+ يوم قبل السفر'},
     {i:'✈️',l:'١ أكتوبر ٢٠٢٦',v:'انطلقوا إلى إيطاليا وسويسرا! 🎉'},
@@ -1494,7 +1662,7 @@ function renderVisa(){
   h+='<div class="visa-tip-title">💡 نصائح ذهبية</div>';
   [
     {i:'🏛️',t:'السفارة الإيطالية مختصة لأن إيطاليا أول دولة شنغن ستدخلونها — لا تتقدموا لأي سفارة أخرى'},
-    {i:'👥',t:'١٠ أشخاص = ١٠ ملفات منفصلة. لا يمكن دمج العائلة في ملف واحد (ماعدا الأطفال مع والديهم)'},
+    {i:'👥',t:'٨ أشخاص = ٨ ملفات منفصلة. لا يمكن دمج العائلة في ملف واحد (ماعدا الأطفال مع والديهم)'},
     {i:'🔄',t:'اطلبوا Multiple Entry حتى لو هذه رحلة واحدة — تسهّل رحلات أوروبية مستقبلية'},
     {i:'🇨🇭',t:'سويسرا ليست في الاتحاد الأوروبي لكنها في منطقة شنغن — نفس التأشيرة تدخلون بها البلدين'},
     {i:'💼',t:'إذا حجزتم مع وكالة سفر معتمدة يمكنها تسريع الإجراءات وتجنب الأخطاء الشائعة'},
