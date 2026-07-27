@@ -1,4 +1,4 @@
-<!-- v1785179652 -->
+<!-- v1785179815 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -1382,6 +1382,43 @@ function renderFly(){
   ].forEach(function(x){
     h+='<span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px">'+x.i+' '+x.t+'</span>';
   });
+  h+='</div></div>';
+
+  // ═══ SAUDIA SCHEDULE ═══
+  h+='<div style="background:#fff;border:2px solid #1e7e44;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="padding:12px 16px;background:#f0f9f0;display:flex;align-items:center;gap:10px;flex-wrap:wrap">';
+  h+='<span style="font-size:20px">🟢</span>';
+  h+='<div><div style="font-size:13px;font-weight:800;color:#1e7e44">جدول رحلات السعودية — الرياض ⇄ ميلانو</div>';
+  h+='<div style="font-size:10px;color:#555;margin-top:1px">طائرة Airbus A330-300 · مدة الرحلة ~٦ س ٢٠ د · الوصول ترمينال ١ مالبينسا</div></div>';
+  h+='</div>';
+  h+='<div style="padding:12px 16px">';
+
+  // Your dates
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">';
+  h+='<div style="background:#eef6fc;border:1.5px solid #1a6b9a44;border-radius:11px;padding:11px 14px">';
+  h+='<div style="font-size:10px;color:#1a6b9a;font-weight:700">🛫 رحلة الذهاب</div>';
+  h+='<div style="font-size:15px;font-weight:900;margin-top:3px">الخميس ١ أكتوبر ٢٠٢٦</div>';
+  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">الرياض RUH ← ميلانو MXP<br>عادة إقلاع صباحي — الوصول ظهراً بتوقيت إيطاليا</div>';
+  h+='</div>';
+  h+='<div style="background:#fdf0f0;border:1.5px solid #b0202044;border-radius:11px;padding:11px 14px">';
+  h+='<div style="font-size:10px;color:#b02020;font-weight:700">🛬 رحلة العودة (SV212)</div>';
+  h+='<div style="font-size:15px;font-weight:900;margin-top:3px">الجمعة ٩ أكتوبر ٢٠٢٦</div>';
+  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">ميلانو MXP ← الرياض RUH<br>مدة الطيران ٦ ساعات — الوصول ليلاً بتوقيت السعودية</div>';
+  h+='</div></div>';
+
+  // Frequency + alternative
+  h+='<div style="background:#f9f8f6;border-radius:10px;padding:10px 13px;margin-bottom:10px;font-size:11px;color:#555;line-height:1.7">';
+  h+='📅 <b>التشغيل:</b> السعودية وطيران ناس يشغّلان المسار مباشرة (~١٣ رحلة مباشرة أسبوعياً بين كل الناقلات) — الرحلات ليست يومية لكل ناقل، لذا <b style="color:#b02020">أكّدوا توفر الخميس ١ أكتوبر والجمعة ٩ أكتوبر قبل الحجز</b><br>';
+  h+='🔄 <b>البديل عبر جدة:</b> رحلة SV211 يومية تقريباً — جدة ٠٩:٣٥ ص ← ميلانو ٠٢:٠٥ ظ (٥ س ٣٠ د) — مناسبة لو الرياض ما توفرت بتاريخكم';
+  h+='</div>';
+
+  // Direct booking links
+  var gfsv='https://www.google.com/travel/flights?q=Saudia+flights+from+RUH+to+MXP+on+2026-10-01+through+2026-10-09';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  h+='<a href="https://www.saudia.com" target="_blank" rel="noopener" style="text-decoration:none;background:#1e7e44;color:#fff;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">احجز من saudia.com ←</a>';
+  h+='<a href="'+gfsv+'" target="_blank" rel="noopener" style="text-decoration:none;background:#fff;color:#1e7e44;border:1.5px solid #1e7e44;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">تحقق من التواريخ Google Flights</a>';
+  h+='<a href="tel:920030000" style="text-decoration:none;background:#f0f9f0;color:#1e7e44;border:1px solid #a0d8b0;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">📞 مكتب المجموعات 920030000</a>';
+  h+='</div>';
   h+='</div></div>';
 
   // Airlines comparison
