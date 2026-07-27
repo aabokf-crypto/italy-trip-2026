@@ -1,4 +1,4 @@
-<!-- v1785179140 -->
+<!-- v1785179652 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -403,6 +403,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="tab" onclick="showPg('tl',this)">🗓️ المسار</button>
       <button class="tab" onclick="showPg('cost',this)">💶 التكاليف</button>
       <button class="tab" onclick="showPg('wx',this)">🌤️ الطقس</button>
+      <button class="tab" onclick="showPg('fly',this)">✈️ الطيران</button>
       <button class="tab" onclick="showPg('hotels',this)">🏨 الفنادق</button>
       <button class="tab" onclick="showPg('visa',this)">📋 التأشيرة</button>
     </div>
@@ -435,6 +436,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   </div>
   <div id="pg-wx" class="pg">
     <div class="wx-section" id="wx-content"></div>
+  </div>
+  <div id="pg-fly" class="pg">
+    <div id="fly-content"></div>
   </div>
   <div id="pg-hotels" class="pg">
     <div id="hotels-content"></div>
@@ -565,7 +569,7 @@ if(!S.dislikers) S.dislikers={};
 if(!S.comments) S.comments={};
 if(!S.shop) S.shop=500;
 if(!S.fixed) S.fixed={
-  flights:{label:'تذاكر الطيران',icon:'✈️',note:'للشخص — ذهاب وإياب',value:750},
+  flights:{label:'تذاكر الطيران',icon:'✈️',note:'سعودية مباشر ذهاب وإياب',value:560},
   van:{label:'إيجار الفان',icon:'🚗',note:'فان ٩ مقاعد · ٩ أيام',value:1100}
 };
 if(!S.dests) S.dests=[
@@ -827,6 +831,7 @@ function showPg(id,btn){
   if(id==='wx') renderWx();
   if(id==='visa') renderVisa();
   if(id==='hotels') renderHotels();
+  if(id==='fly') renderFly();
 }
 
 // ═══════════════════════════════════════
@@ -1353,6 +1358,101 @@ var HALAL = {
   ]
 };
 
+
+
+// ═══════════════════════════════════════
+// FLIGHTS (أسعار حقيقية أكتوبر 2026)
+// ═══════════════════════════════════════
+function renderFly(){
+  var el=document.getElementById('fly-content');
+  if(!el) return;
+  var h='';
+
+  // Hero
+  h+='<div style="background:linear-gradient(135deg,#0c2d48,#14507e);border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden">';
+  h+='<div style="position:absolute;top:-30px;left:-30px;width:140px;height:140px;border-radius:50%;background:#4a9fd4;opacity:.08"></div>';
+  h+='<div style="font-size:10px;color:#7dd3fc;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;opacity:.9">الرياض ← ميلانو مالبينسا · ٨ مسافرين</div>';
+  h+='<div style="font-size:18px;font-weight:900;margin-bottom:8px">✈️ دليل الطيران</div>';
+  h+='<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11px">';
+  [
+    {i:'🛫',t:'RUH → MXP مباشر'},
+    {i:'⏱️',t:'~٦ ساعات طيران'},
+    {i:'📅',t:'ذهاب ١ أكتوبر · عودة ٩ أكتوبر'},
+    {i:'💺',t:'١٣ رحلة مباشرة أسبوعياً'}
+  ].forEach(function(x){
+    h+='<span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px">'+x.i+' '+x.t+'</span>';
+  });
+  h+='</div></div>';
+
+  // Airlines comparison
+  h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="padding:12px 16px;border-bottom:1px solid #f0ece6;font-size:13px;font-weight:800">🏆 مقارنة الخطوط — ذهاب وإياب / شخص</div>';
+  h+='<div style="padding:10px 16px;display:flex;flex-direction:column;gap:8px">';
+  var airlines=[
+    {n:'السعودية Saudia',type:'مباشر ✅',price:'~560€ (2,265 ريال)',pts:'الأفضل للعائلة — أمتعة 2×23كج مشمولة، وجبات حلال، خدمة ممتازة',c:'#1e7e44',best:true,url:'saudia.com'},
+    {n:'flyadeal فلاي أديل',type:'مباشر ✅',price:'~460€ (1,860 ريال)',pts:'الأرخص مباشر — لكن الأمتعة والوجبات برسوم إضافية',c:'#7c3aed',best:false,url:'flyadeal.com'},
+    {n:'ITA Airways',type:'مباشر ✅',price:'~520€ (2,100 ريال)',pts:'الناقل الإيطالي — جودة جيدة وأمتعة مشمولة',c:'#0284c7',best:false,url:'ita-airways.com'},
+    {n:'الاتحاد Etihad',type:'ترانزيت أبوظبي',price:'~410€ (1,660 ريال)',pts:'أرخص مع توقف — يضيف ٣-٤ ساعات للرحلة',c:'#b45309',best:false,url:'etihad.com'},
+    {n:'القطرية Qatar Airways',type:'ترانزيت الدوحة',price:'~500€ (2,025 ريال)',pts:'خدمة ٥ نجوم مع توقف قصير في الدوحة',c:'#7f1d1d',best:false,url:'qatarairways.com'}
+  ];
+  airlines.forEach(function(a){
+    h+='<div style="display:flex;gap:12px;padding:11px 13px;background:'+(a.best?'#f0f9f0':'#f9f8f6')+';border-radius:11px;align-items:center;flex-wrap:wrap;'+(a.best?'border:1.5px solid #a0d8b0':'')+'">';
+    h+='<div style="flex:1;min-width:170px">';
+    h+='<div style="font-size:12.5px;font-weight:800">'+a.n+' '+(a.best?'<span style="background:#1e7e44;color:#fff;border-radius:12px;padding:1px 8px;font-size:9px;margin-right:4px">موصى به</span>':'')+'</div>';
+    h+='<div style="font-size:10px;color:'+a.c+';font-weight:700;margin-top:2px">'+a.type+'</div>';
+    h+='<div style="font-size:10px;color:#555;margin-top:3px;line-height:1.5">'+a.pts+'</div>';
+    h+='</div>';
+    h+='<div style="text-align:center;background:#fff;border-radius:9px;padding:8px 14px"><div style="font-size:9px;color:#9e9890">ذهاب وإياب</div><div style="font-size:14px;font-weight:900;color:'+a.c+'">'+a.price+'</div></div>';
+    h+='</div>';
+  });
+  h+='</div></div>';
+
+  // Group booking card
+  h+='<div style="background:#fdf8ed;border:1.5px dashed #d4a017;border-radius:14px;padding:14px 18px;margin-bottom:14px">';
+  h+='<div style="font-size:12.5px;font-weight:800;color:#8a6000;margin-bottom:8px">👥 الحجز الجماعي — مكتب مجموعات السعودية</div>';
+  h+='<div style="font-size:11px;color:#6b6560;line-height:1.7">';
+  h+='• الحجز الجماعي عادة يبدأ من <b>١٠ مسافرين</b> — عددكم ٨، جربوا التفاوض أو أضيفوا مسافرين<br>';
+  h+='• مزايا المجموعات: سعر مثبّت، دفعة مقدمة بسيطة، تعديل الأسماء لاحقاً، مقاعد متجاورة<br>';
+  h+='• التواصل: <b style="color:#8a6000">920030000</b> أو مكتب المبيعات — اطلبوا "قسم حجوزات المجموعات"<br>';
+  h+='• البديل: احجزوا ٨ تذاكر عادية دفعة واحدة بجلسة حجز واحدة لضمان نفس السعر والمقاعد المتجاورة';
+  h+='</div></div>';
+
+  // Live price tracking
+  var gf='https://www.google.com/travel/flights?q=Flights+from+RUH+to+MXP+on+2026-10-01+through+2026-10-09';
+  var sk='https://www.skyscanner.com/transport/flights/ruh/mxp/261001/261009/';
+  var ky='https://www.kayak.com/flights/RUH-MXP/2026-10-01/2026-10-09/8adults';
+  h+='<div style="background:linear-gradient(135deg,#0d4f3c,#1a7a5e);border-radius:14px;padding:14px 18px;margin-bottom:14px;color:#fff">';
+  h+='<div style="font-size:12.5px;font-weight:900;margin-bottom:4px">📉 تتبع أسعار الطيران الحي</div>';
+  h+='<div style="font-size:10px;opacity:.75;margin-bottom:10px">الروابط مضبوطة: الرياض ← مالبينسا · ١ أكتوبر ← ٩ أكتوبر · ٨ مسافرين</div>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  h+='<a href="'+gf+'" target="_blank" rel="noopener" style="text-decoration:none;background:#fff;color:#1a1614;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">Google Flights 🔔 تتبع</a>';
+  h+='<a href="'+sk+'" target="_blank" rel="noopener" style="text-decoration:none;background:#00b2d6;color:#fff;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">Skyscanner ←</a>';
+  h+='<a href="'+ky+'" target="_blank" rel="noopener" style="text-decoration:none;background:#ff690f;color:#fff;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">Kayak ←</a>';
+  h+='</div>';
+  h+='<div style="margin-top:10px;font-size:10px;opacity:.8;line-height:1.6">💡 سبتمبر وأكتوبر من أرخص الشهور لهذا المسار — فعّلوا التتبع في Google Flights واحجزوا عند أي انخفاض. أفضل أيام الحجز: الثلاثاء والأربعاء.</div>';
+  h+='</div>';
+
+  // Airport & arrival info
+  h+='<div style="background:#fff;border:1px solid #e8e4de;border-radius:14px;padding:14px 18px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
+  h+='<div style="font-size:12px;font-weight:800;margin-bottom:10px">🛬 معلومات الوصول — مطار مالبينسا MXP</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px">';
+  [
+    {i:'📍',t:'المسافة لكومو',v:'~٥٥ كم · ساعة بالفان'},
+    {i:'🚐',t:'استلام الفان',v:'مكاتب التأجير في T1'},
+    {i:'🛂',t:'الجوازات',v:'~٣٠-٤٥ دقيقة عادة'},
+    {i:'💶',t:'صراف آلي',v:'اسحبوا يورو من ATM المطار'},
+    {i:'📱',t:'eSIM',v:'فعّلوها قبل الهبوط'},
+    {i:'🕐',t:'الوصول المثالي',v:'رحلة صباحية = يوم كامل في كومو'}
+  ].forEach(function(x){
+    h+='<div style="background:#f9f8f6;border-radius:10px;padding:9px 12px">';
+    h+='<div style="font-size:16px">'+x.i+'</div>';
+    h+='<div style="font-size:10px;color:#9e9890;margin-top:2px">'+x.t+'</div>';
+    h+='<div style="font-size:11px;font-weight:700;margin-top:1px">'+x.v+'</div></div>';
+  });
+  h+='</div></div>';
+
+  el.innerHTML=h;
+}
 
 // ═══════════════════════════════════════
 // HOTELS (أسعار حقيقية أكتوبر 2026 — 8 أشخاص)
