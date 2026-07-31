@@ -3,14 +3,8 @@
   "visitors": [],
   "list": [
     {
-      "name": "زائر-22WA",
-      "time": 1785517935986,
-      "device": "📱 iPhone",
-      "anon": true
-    },
-    {
-      "name": "Asmaa",
-      "time": 1785517917985,
+      "name": "محاسن",
+      "time": 1785518140396,
       "device": "📱 iPhone",
       "anon": false
     },
@@ -63,6 +57,12 @@
       "anon": true
     },
     {
+      "name": "Asmaa",
+      "time": 1783230684927,
+      "device": "📱 iPhone",
+      "anon": false
+    },
+    {
       "name": "زائر-187F",
       "time": 1783186649290,
       "device": "💻 Mac",
@@ -89,12 +89,6 @@
     {
       "name": "عبدالرحمن",
       "time": 1782765062643,
-      "device": "📱 iPhone",
-      "anon": false
-    },
-    {
-      "name": "محاسن",
-      "time": 1782762357463,
       "device": "📱 iPhone",
       "anon": false
     },
@@ -351,5 +345,5 @@
       "anon": true
     }
   ],
-  "count": 101
+  "count": 100
 }
