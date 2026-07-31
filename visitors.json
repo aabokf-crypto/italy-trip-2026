@@ -3,6 +3,12 @@
   "visitors": [],
   "list": [
     {
+      "name": "زائر-22WA",
+      "time": 1785517935986,
+      "device": "📱 iPhone",
+      "anon": true
+    },
+    {
       "name": "Asmaa",
       "time": 1785517917985,
       "device": "📱 iPhone",
@@ -345,5 +351,5 @@
       "anon": true
     }
   ],
-  "count": 100
+  "count": 101
 }
