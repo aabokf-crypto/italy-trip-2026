@@ -3,10 +3,10 @@
   "visitors": [],
   "list": [
     {
-      "name": "محاسن",
-      "time": 1785502282856,
+      "name": "زائر-3NNZ",
+      "time": 1785502296545,
       "device": "📱 iPhone",
-      "anon": false
+      "anon": true
     },
     {
       "name": "زائر-9VVU",
@@ -83,6 +83,12 @@
     {
       "name": "عبدالرحمن",
       "time": 1782765062643,
+      "device": "📱 iPhone",
+      "anon": false
+    },
+    {
+      "name": "محاسن",
+      "time": 1782762357463,
       "device": "📱 iPhone",
       "anon": false
     },
@@ -246,12 +252,6 @@
       "name": "زائر-LEZT",
       "time": 1781007670529,
       "device": "🖥️ Windows",
-      "anon": true
-    },
-    {
-      "name": "زائر-3NNZ",
-      "time": 1781004799898,
-      "device": "📱 iPhone",
       "anon": true
     },
     {
