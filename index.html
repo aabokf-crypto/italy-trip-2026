@@ -1,4 +1,4 @@
-<!-- v1785179815 -->
+<!-- v1785616827 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -569,7 +569,7 @@ if(!S.dislikers) S.dislikers={};
 if(!S.comments) S.comments={};
 if(!S.shop) S.shop=500;
 if(!S.fixed) S.fixed={
-  flights:{label:'تذاكر الطيران',icon:'✈️',note:'سعودية مباشر ذهاب وإياب',value:560},
+  flights:{label:'تذاكر الطيران',icon:'✈️',note:'ناس مباشر ذهاب وإياب + أمتعة',value:450},
   van:{label:'إيجار الفان',icon:'🚗',note:'فان ٩ مقاعد · ٩ أيام',value:1100}
 };
 if(!S.dests) S.dests=[
@@ -1388,34 +1388,34 @@ function renderFly(){
   h+='<div style="background:#fff;border:2px solid #1e7e44;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)">';
   h+='<div style="padding:12px 16px;background:#f0f9f0;display:flex;align-items:center;gap:10px;flex-wrap:wrap">';
   h+='<span style="font-size:20px">🟢</span>';
-  h+='<div><div style="font-size:13px;font-weight:800;color:#1e7e44">جدول رحلات السعودية — الرياض ⇄ ميلانو</div>';
-  h+='<div style="font-size:10px;color:#555;margin-top:1px">طائرة Airbus A330-300 · مدة الرحلة ~٦ س ٢٠ د · الوصول ترمينال ١ مالبينسا</div></div>';
+  h+='<div><div style="font-size:13px;font-weight:800;color:#1e7e44">الرحلات المباشرة الرياض ⇄ ميلانو — طيران ناس ✈️</div>';
+  h+='<div style="font-size:10px;color:#555;margin-top:1px">خط جديد منذ مايو ٢٠٢٦ · ٣ رحلات أسبوعياً · Airbus A330 · الوصول ترمينال ١</div></div>';
   h+='</div>';
   h+='<div style="padding:12px 16px">';
 
   // Your dates
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">';
   h+='<div style="background:#eef6fc;border:1.5px solid #1a6b9a44;border-radius:11px;padding:11px 14px">';
-  h+='<div style="font-size:10px;color:#1a6b9a;font-weight:700">🛫 رحلة الذهاب</div>';
+  h+='<div style="font-size:10px;color:#1a6b9a;font-weight:700">🛫 الذهاب — XY397</div>';
   h+='<div style="font-size:15px;font-weight:900;margin-top:3px">الخميس ١ أكتوبر ٢٠٢٦</div>';
-  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">الرياض RUH ← ميلانو MXP<br>عادة إقلاع صباحي — الوصول ظهراً بتوقيت إيطاليا</div>';
+  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">الرياض <b>٠٤:٥٥ فجراً</b> ← ميلانو <b>١٠:١٥ صباحاً</b><br>٦ س ٢٠ د — تصلون الصبح = يوم كامل في كومو! 🎯</div>';
   h+='</div>';
   h+='<div style="background:#fdf0f0;border:1.5px solid #b0202044;border-radius:11px;padding:11px 14px">';
-  h+='<div style="font-size:10px;color:#b02020;font-weight:700">🛬 رحلة العودة (SV212)</div>';
+  h+='<div style="font-size:10px;color:#b02020;font-weight:700">🛬 العودة — XY398 (أيام الجمعة ✅)</div>';
   h+='<div style="font-size:15px;font-weight:900;margin-top:3px">الجمعة ٩ أكتوبر ٢٠٢٦</div>';
-  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">ميلانو MXP ← الرياض RUH<br>مدة الطيران ٦ ساعات — الوصول ليلاً بتوقيت السعودية</div>';
+  h+='<div style="font-size:10.5px;color:#555;margin-top:3px">ميلانو <b>~١١:٠٥ ص</b> ← الرياض <b>١٧:٥٥ م</b><br>٥ س ٥٠ د — يطابق تاريخ عودتكم تماماً!</div>';
   h+='</div></div>';
 
   // Frequency + alternative
   h+='<div style="background:#f9f8f6;border-radius:10px;padding:10px 13px;margin-bottom:10px;font-size:11px;color:#555;line-height:1.7">';
-  h+='📅 <b>التشغيل:</b> السعودية وطيران ناس يشغّلان المسار مباشرة (~١٣ رحلة مباشرة أسبوعياً بين كل الناقلات) — الرحلات ليست يومية لكل ناقل، لذا <b style="color:#b02020">أكّدوا توفر الخميس ١ أكتوبر والجمعة ٩ أكتوبر قبل الحجز</b><br>';
-  h+='🔄 <b>البديل عبر جدة:</b> رحلة SV211 يومية تقريباً — جدة ٠٩:٣٥ ص ← ميلانو ٠٢:٠٥ ظ (٥ س ٣٠ د) — مناسبة لو الرياض ما توفرت بتاريخكم';
+  h+='⚠️ <b>تصحيح مهم:</b> السعودية <b>ما عندها مباشر من الرياض</b> — رحلتها المباشرة SV211 من <b>جدة فقط</b> (٠٩:٣٥ ص ← ميلانو ٠٢:٠٥ ظ). من الرياض حجوزات السعودية كلها ترانزيت عبر جدة<br>';
+  h+='✅ <b>المباشر من الرياض:</b> طيران ناس XY397 (٣ أسبوعياً) + ITA Airways (الرياض ٠٩:١٠ ← ميلانو ٠٢:٠٥ ظ) — <b style="color:#b02020">أكّدوا توفر تواريخكم بالضبط قبل الحجز</b>';
   h+='</div>';
 
   // Direct booking links
   var gfsv='https://www.google.com/travel/flights?q=Saudia+flights+from+RUH+to+MXP+on+2026-10-01+through+2026-10-09';
   h+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
-  h+='<a href="https://www.saudia.com" target="_blank" rel="noopener" style="text-decoration:none;background:#1e7e44;color:#fff;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">احجز من saudia.com ←</a>';
+  h+='<a href="https://www.flynas.com" target="_blank" rel="noopener" style="text-decoration:none;background:#1e7e44;color:#fff;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">احجز من flynas.com ←</a>';
   h+='<a href="'+gfsv+'" target="_blank" rel="noopener" style="text-decoration:none;background:#fff;color:#1e7e44;border:1.5px solid #1e7e44;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">تحقق من التواريخ Google Flights</a>';
   h+='<a href="tel:920030000" style="text-decoration:none;background:#f0f9f0;color:#1e7e44;border:1px solid #a0d8b0;border-radius:8px;padding:7px 15px;font-size:11px;font-weight:700">📞 مكتب المجموعات 920030000</a>';
   h+='</div>';
@@ -1426,9 +1426,9 @@ function renderFly(){
   h+='<div style="padding:12px 16px;border-bottom:1px solid #f0ece6;font-size:13px;font-weight:800">🏆 مقارنة الخطوط — ذهاب وإياب / شخص</div>';
   h+='<div style="padding:10px 16px;display:flex;flex-direction:column;gap:8px">';
   var airlines=[
-    {n:'السعودية Saudia',type:'مباشر ✅',price:'~560€ (2,265 ريال)',pts:'الأفضل للعائلة — أمتعة 2×23كج مشمولة، وجبات حلال، خدمة ممتازة',c:'#1e7e44',best:true,url:'saudia.com'},
-    {n:'flyadeal فلاي أديل',type:'مباشر ✅',price:'~460€ (1,860 ريال)',pts:'الأرخص مباشر — لكن الأمتعة والوجبات برسوم إضافية',c:'#7c3aed',best:false,url:'flyadeal.com'},
-    {n:'ITA Airways',type:'مباشر ✅',price:'~520€ (2,100 ريال)',pts:'الناقل الإيطالي — جودة جيدة وأمتعة مشمولة',c:'#0284c7',best:false,url:'ita-airways.com'},
+    {n:'طيران ناس flynas',type:'مباشر من الرياض ✅',price:'~400€ (1,620 ريال)',pts:'المباشر الوحيد بتوقيت مثالي — ٠٤:٥٥ فجراً تصل ١٠:١٥ صباحاً. أضف الأمتعة عند الحجز',c:'#1e7e44',best:true,url:'flynas.com'},
+    {n:'ITA Airways',type:'مباشر من الرياض ✅',price:'~520€ (2,100 ريال)',pts:'الناقل الإيطالي — ٠٩:١٠ ص ← ٠٢:٠٥ ظ، أمتعة مشمولة',c:'#0284c7',best:false,url:'ita-airways.com'},
+    {n:'السعودية Saudia',type:'مباشر من جدة فقط ⚠️',price:'~560€ (2,265 ريال)',pts:'SV211 من جدة ٠٩:٣٥ص — من الرياض ترانزيت عبر جدة. أمتعة 2×23كج',c:'#6b7280',best:false,url:'saudia.com'},
     {n:'الاتحاد Etihad',type:'ترانزيت أبوظبي',price:'~410€ (1,660 ريال)',pts:'أرخص مع توقف — يضيف ٣-٤ ساعات للرحلة',c:'#b45309',best:false,url:'etihad.com'},
     {n:'القطرية Qatar Airways',type:'ترانزيت الدوحة',price:'~500€ (2,025 ريال)',pts:'خدمة ٥ نجوم مع توقف قصير في الدوحة',c:'#7f1d1d',best:false,url:'qatarairways.com'}
   ];
