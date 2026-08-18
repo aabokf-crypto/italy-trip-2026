@@ -3,6 +3,12 @@
   "visitors": [],
   "list": [
     {
+      "name": "زائر-LOWY",
+      "time": 1787072842233,
+      "device": "🖥️ Windows",
+      "anon": true
+    },
+    {
       "name": "زائر-ZU76",
       "time": 1787072744634,
       "device": "📱 iPhone",
@@ -381,5 +387,5 @@
       "anon": true
     }
   ],
-  "count": 110
+  "count": 111
 }
